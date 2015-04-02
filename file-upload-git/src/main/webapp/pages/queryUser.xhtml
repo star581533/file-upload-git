@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">	
+		<h:head>
+			<title>
+				<h:outputText value="帳號查詢" />
+			</title>
+		</h:head>		
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="queryUserController" header="帳號查詢">
+				<p:fieldset legend="帳號查詢">
+					<table>
+						<tr>
+							<td>
+								<h:outputText value="科別：" />
+							</td>	
+							<td>
+								<p:selectOneMenu id="officeId" value="#{queryUserController.dto.officeId}">
+									<f:selectItem itemLabel="系統管理員" itemValue="000" />
+							     	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
+							     	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
+							     	<f:selectItem itemLabel="戶口調查科" itemValue="003" />
+							     	<f:selectItem itemLabel="人口政策科" itemValue="004" />
+							     	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
+							     	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
+							     	<f:selectItem itemLabel="戶政司" itemValue="111" />      
+						        </p:selectOneMenu>
+							</td>					        
+							<td>
+								<p:commandButton value="查詢" action="#{queryUserController.queryButton}" ajax="false" update="growl"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							 	<font color="red" size="1">*</font>
+							 	<h:outputText value="在職狀態：" />
+							</td>
+							<td colspan="2">
+								<p:selectOneRadio id="state" value="#{queryUserController.dto.state}">
+									<f:selectItem itemLabel="在職" itemValue="Y" />
+									<f:selectItem itemLabel="離職" itemValue="N"/>
+									<f:selectItem itemLabel="停用" itemValue="S"/>
+									<f:selectItem itemLabel="不選擇" itemValue="A"/>
+								</p:selectOneRadio>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>
+				<p:fieldset legend="使用者資訊" id="resultList" rendered="#{queryUserController.dto.users != null}">					
+					<p:dataTable  var="user" value="#{queryUserController.dto.users}" rows="10" paginator="true" rowsPerPageTemplate="5,10,15">
+						<p:column headerText="科別">
+							<h:outputText value="#{user.officeId}" />
+						</p:column>
+						<p:column headerText="使用者帳號">
+							<p:commandLink id="userIdLink" actionListener="#{queryUserController.userDataLink}" action="#{queryUserController.userForward}">
+								<h:outputText value="#{user.userId}" />
+								<f:attribute name="userId" value="#{user.userId}" />
+							</p:commandLink>
+						</p:column>
+						<p:column headerText="使用者名稱">
+							<h:outputText value="#{user.userName}" />
+						</p:column>
+						<p:column headerText="使用者權限">
+							<h:outputText value="#{user.roleId}"/>
+						</p:column>
+						<p:column headerText="狀態">
+							<h:outputText value="#{user.state}" />
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>			 
+			</p:panel>
+		</h:form>		
+	</ui:define>
+</ui:composition>
+</html>

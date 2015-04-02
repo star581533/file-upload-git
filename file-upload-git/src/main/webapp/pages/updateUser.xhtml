@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">	
+	<ui:define name="content">	
+		<h:head>
+			<title>
+				<h:outputText value="修改使用者資料" />		
+			</title>
+		</h:head>		
+		<h:form>
+			<p:panel id="updateUser" header="修改使用者資料">
+				<table>
+					<tr>
+						<td>
+							<h:outputText value="使用者帳號：" />
+						</td>
+						<td>
+							<h:outputText value="#{queryUserController.dto.user.userId}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="使用者姓名：" />
+						</td>
+						<td>
+							<h:inputText value="#{queryUserController.dto.user.userName}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="科別：" />
+						</td>
+						<td>
+							<p:autoComplete id="btn" dropdown="true" value="#{queryUserController.dto.user.roleId}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="在職狀態：" />
+						</td>
+						<td>
+							<p:selectOneRadio id="" value="#{queryUserController.dto.user.state}">
+								<f:selectItem itemLabel="在職" itemValue="Y" />
+								<f:selectItem itemLabel="離職" itemValue="N" />
+								<f:selectItem itemLabel="停用" itemValue="S" />
+							</p:selectOneRadio>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="密碼重設：" />
+						</td>
+						<td>
+							<h:commandButton value="密碼重設" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:commandButton value="確定"/>
+	  						  <h:commandButton value="重設"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

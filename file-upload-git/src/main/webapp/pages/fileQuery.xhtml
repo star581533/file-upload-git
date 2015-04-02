@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">		
+		<h:head>
+			<title>檔案查詢</title>
+		</h:head>	
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="fileQueryController" header="檔案查詢">			
+				<p:fieldset legend="檔案查詢">
+					<table>
+						<tr>
+							<td>
+								<font color="red" size="1">*</font>
+								<h:outputText value="類型：" />
+							</td>
+							<td>
+								<p:selectOneRadio id="type" value="#{fileQueryController.dto.type}">
+									<f:selectItem itemLabel="公文" itemValue="Y" />
+									<f:selectItem itemLabel="非公文" itemValue="N" />
+								</p:selectOneRadio>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="密件：" />
+							</td>
+							<td>
+								<p:selectOneRadio id="secret" value="#{fileQueryController.dto.secret}">
+									<f:selectItem itemLabel="是" itemValue="Y"/>
+									<f:selectItem itemLabel="否" itemValue="N"/>
+								</p:selectOneRadio>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<font color="red" size="1">*</font>
+								<h:outputText value="日期區間：" />					
+							</td>
+							<td>
+								<p:calendar id="startDate" showOn="button" value="#{fileQueryController.dto.startDate}"/>~
+								<p:calendar id="endDate" showOn="button" value="#{fileQueryController.dto.endDate}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="分類號："/>
+							</td>
+							<td>
+								<h:inputText value="#{fileQueryController.dto.classNum}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="公文文號："/>
+							</td>
+							<td>
+								<h:inputText value="#{fileQueryController.dto.disPatchNum}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="主旨："/>
+							</td>
+							<td>
+								<h:inputTextarea value="#{fileQueryController.dto.subject}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="機關："/>
+							</td>
+							<td>
+								<h:inputText value="#{fileQueryController.dto.government}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:commandButton value="查詢" action="#{fileQueryController.doQuery}" ajax="false" update="growl"/>
+		   						<p:commandButton value="重設" ajax="false"/>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>
+				<p:fieldset legend="" id="resultList" rendered="#{fileQueryController.dto.files != null}">
+					<table>
+						<p:dataTable var="file" value="#{fileQueryController.dto.files}" rows="10"
+							paginator="true"
+							rowsPerPageTemplate="5,10,15">
+							<p:column headerText="日期">
+								<h:outputText value="#{file.uploadDate}" />
+							</p:column>
+							<p:column headerText="分類號">
+								<h:outputText value="#{file.classNum}" />
+							</p:column>						
+							<p:column headerText="公文文號">
+								<h:outputText value="#{file.disPatchNum}" />
+							</p:column>		
+							<p:column headerText="主旨">
+								<h:outputText value="#{file.subject}" />
+							</p:column>
+							<p:column headerText="單位">
+								<h:outputText value="#{file.officeId}" />
+							</p:column>
+							<p:column headerText="上傳者姓名">
+								<h:outputText value="#{file.userName}" />
+							</p:column>
+							<p:column headerText="機關">
+								<h:outputText value="#{file.government}" />
+							</p:column>
+							<p:column headerText="密件">
+								<h:outputText value="#{file.secret}" />
+							</p:column>
+							<p:column headerText="">
+								<h:outputText value="下載" />
+							</p:column>
+						</p:dataTable>
+					</table>				
+				</p:fieldset>
+			</p:panel>
+		</h:form>			
+	</ui:define>
+</ui:composition>
+</html>

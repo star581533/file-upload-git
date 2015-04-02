@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">	
+		<h:head>
+			<title>檔案上傳</title>
+		</h:head>	
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="fileUpload" header="檔案上傳">			
+				<table>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="類型：" />
+						</td>
+						<td>
+							<p:selectOneRadio id="type" value="#{fileUploadController.dto.type}">
+								<f:selectItem itemLabel="公文" itemValue="Y" />
+								<f:selectItem itemLabel="非公文" itemValue="N" />
+							</p:selectOneRadio>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="密件：" />
+						</td>
+						<td>
+							<p:selectOneRadio id="secret" value="#{fileUploadController.dto.secret}">
+								<f:selectItem itemLabel="是" itemValue="Y" />
+								<f:selectItem itemLabel="否" itemValue="N" />
+							</p:selectOneRadio>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="日期：" />
+						</td>
+						<td>
+							<p:calendar id="startDate" showOn="button" value="#{fileUploadController.dto.startDate}" />~
+							<p:calendar id="endDate" showOn="button" value="#{fileUploadController.dto.endDate}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="分類號："/>
+						</td>
+						<td>
+							<h:inputText value="#{fileUploadController.dto.classNum}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="公文文號："/>
+						</td>
+						<td>
+							<h:inputText value="#{fileUploadController.dto.disPatchNum}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="主旨："/>
+						</td>
+						<td>
+							<h:inputTextarea value="#{fileUploadController.dto.subject}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="檔案："/>
+						</td>
+						<td>
+							<p:fileUpload value="#{fileUploadController.uploadedFile}" mode="simple"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="機關："/>
+						</td>
+						<td>
+							<h:inputText value="#{fileUploadController.dto.government}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:commandButton value="確定" actionListener="#{fileUploadController.uploadData}" update="growl" />
+	   						<p:commandButton value="重設" ajax="false"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>	
+		</h:form>						
+	</ui:define>
+</ui:composition>
+</html>

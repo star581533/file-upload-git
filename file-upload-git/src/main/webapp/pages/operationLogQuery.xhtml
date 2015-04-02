@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">	
+		<h:head>
+			<title>
+				<h:outputText value="操作紀錄查詢"/>
+			</title>
+		</h:head>	
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="operationLogQueryController" header="操作紀錄查詢">
+				<p:fieldset legend="操作紀錄查詢">
+					<table>
+						<tr>
+							<td>
+								<font color="red" size="1">*</font>
+								<h:outputText value="日期區間：" />
+							</td>
+							<td>
+								<p:calendar id="startDate" showOn="button" value="#{operationLogQueryController.dto.startDate}" />~
+								<p:calendar id="endDate" showOn="button" value="#{operationLogQueryController.dto.endDate}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="科別：" />
+							</td>
+							<td>
+								<p:selectOneMenu id="officeId" value="#{operationLogQueryController.dto.officeId}">
+						        	<f:selectItem itemLabel="系統管理員" itemValue="000" />
+							     	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
+							     	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
+							     	<f:selectItem itemLabel="戶口調查科" itemValue="003" />
+							     	<f:selectItem itemLabel="人口政策科" itemValue="004" />
+							     	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
+							     	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
+							     	<f:selectItem itemLabel="戶政司" itemValue="111" />    
+						        </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="使用者帳號：" />
+							</td>
+							<td>
+								<h:inputText value="#{operationLogQueryController.dto.userId}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="使用者姓名：" />
+							</td>
+							<td>
+								<h:inputText value="#{operationLogQueryController.dto.userName}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:commandButton value="查詢" action="#{operationLogQueryController.doQuery}" ajax="false"  update="growl"/>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>
+				<p:fieldset id="resultList" legend="" rendered="#{operationLogQueryController.dto.operationLogs != null}">
+					<p:dataTable var="operationLog" value="#{operationLogQueryController.dto.operationLogs}" rows="10"
+						paginator="true"
+						rowsPerPageTemplate="5,10,15">
+						<p:column headerText="作業日期">
+							<h:outputText value="#{operationLog.logDate}" />
+						</p:column>
+						<p:column headerText="作業時間">
+							<h:outputText value="#{operationLog.logTime}" />
+						</p:column>
+						<p:column headerText="使用者帳號">
+							<h:outputText value="#{operationLog.userId}" />
+						</p:column>
+						<p:column headerText="使用者姓名">
+							<h:outputText value="#{operationLog.userName}" />
+						</p:column>
+						<p:column headerText="科別">
+							<h:outputText value="#{operationLog.officeId}" />
+						</p:column>
+						<p:column headerText="作業名稱">
+							<h:outputText value="#{operationLog.type}" />
+						</p:column>
+						<p:column headerText="作業內容">
+							<h:outputText value="#{operationLog.operationContent}" />
+						</p:column>					
+					</p:dataTable>
+				</p:fieldset>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

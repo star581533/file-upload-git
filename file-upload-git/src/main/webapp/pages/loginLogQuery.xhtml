@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">		
+		<h:head>
+			<title>
+				<h:outputText value="簽到/簽退紀錄查詢"/>
+			</title>
+		</h:head>	
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="loginLogQueryController" header="簽到/簽退紀錄查詢">
+				<p:fieldset legend="簽到/簽退紀錄查詢">
+					<table width="100%">
+						<tr>
+							<td>
+								<font color="red" size="1">*</font>
+								<h:outputText value="日期區間：" />
+							</td>
+							<td>
+								<p:calendar id="startDate" showOn="button" value="#{loginLogQueryController.dto.startDate}" />~
+								<p:calendar id="endDate" showOn="button" value="#{loginLogQueryController.dto.endDate}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="科別：" />
+							</td>							
+							<td>
+								<p:selectOneMenu id="officeId" value="#{loginLogQueryController.dto.officeId}">
+									<f:selectItem itemLabel="系統管理員" itemValue="000" />
+							     	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
+							     	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
+							     	<f:selectItem itemLabel="戶口調查科" itemValue="003" />
+							     	<f:selectItem itemLabel="人口政策科" itemValue="004" />
+							     	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
+							     	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
+							     	<f:selectItem itemLabel="戶政司" itemValue="111" />  
+						        </p:selectOneMenu>						        
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="使用者帳號：" />
+							</td>
+							<td>
+								<h:inputText id="userId" value="#{loginLogQueryController.dto.userId}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="使用者姓名：" />
+							</td>
+							<td>
+								<h:inputText id="userName" value="#{loginLogQueryController.dto.userName}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:commandButton value="查詢" action="#{loginLogQueryController.doQuery}" ajax="false" update="growl"/>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>
+				<p:fieldset legend="" id="resultTable" rendered="#{loginLogQueryController.dto.loginLogs != null}">
+					<p:dataTable var="loginLog" value="#{loginLogQueryController.dto.loginLogs}" rows="10"
+						paginator="true"
+						rowsPerPageTemplate="5,10,15">
+						<p:column headerText="作業日期">
+							<h:outputText value="#{loginLog.loginDate}" />
+						</p:column>
+						<p:column headerText="作業時間">
+							<h:outputText value="#{loginLog.loginTime}" />
+						</p:column>
+						<p:column headerText="使用者帳號">
+							<h:outputText value="#{loginLog.userId}" />
+						</p:column>
+						<p:column headerText="使用者姓名">
+							<h:outputText value="#{loginLog.userName}" />
+						</p:column>
+						<p:column headerText="單位名稱">
+							<h:outputText value="#{loginLog.officeId}" />
+						</p:column>
+						<p:column headerText="簽到/簽退">
+							<h:outputText value="#{loginLog.inOutMark}" />
+						</p:column>
+					</p:dataTable>				
+				</p:fieldset>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

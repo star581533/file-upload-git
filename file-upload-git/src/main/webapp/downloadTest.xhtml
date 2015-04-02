@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+
+    <h:head>
+        <script type="text/javascript">
+    		function start(){
+    			PF('statusDialog').show();
+    		}
+    		function stop(){
+    			PF('statusDialog').hide();
+    		}
+   		</script>
+   		
+        <title>Download Test</title>
+    </h:head>
+    <h:body>
+    	<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+       		<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+        </p:dialog>
+        <h:form id="downloadForm">
+        	<p:commandButton value="Download" ajax="false" actionListener="#{downloadTest.downloadFile}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+        		<p:fileDownload value="#{downloadTest.file}" />
+        	</p:commandButton>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:test="http://java.sun.com/jsf/composite/test">
+	
+	<h:body>
+		<h1>Composite Components in JSF 2.0</h1>
+		<test:register
+			nameLable="Name"
+			nameValue="#{userController.name}"
+			emailLable="E-mail"
+			emailValue="#{userController.email}"
+			
+			officeId="#{userController.officeId}"
+			items="#{userController.items}"
+			registerButtonText="Register"
+			registerButtonAction="#{userController.registerAction}"
+		/>
+	</h:body>
+</html>

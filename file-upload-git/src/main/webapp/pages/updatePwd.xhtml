@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="content">	
+		<h:head>
+			<title>
+				<h:outputText value="密碼修改" />
+			</title>
+		</h:head>	
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="updatePwdController" header="密碼修改">
+				<table>
+					<tr>
+						<td>
+							 <h:outputText value="使用者帳號：" />
+						</td>
+						<td>
+							<h:outputText value="#{updatePwdController.dto.userId}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="舊密碼：" />
+						</td>
+						<td>
+							<h:inputText value="#{updatePwdController.dto.oldPassWord}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="新密碼：" />
+						</td>
+						<td>
+							<h:inputText value="#{updatePwdController.dto.newPassWord}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<font color="red" size="1">*</font>
+							<h:outputText value="確認密碼：" />
+						</td>
+						<td>
+							<h:inputText value="#{updatePwdController.dto.confirmPassWord}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:commandButton value="確定" action="#{updatePwdController.saveData}" update="growl"/>
+	    					<p:commandButton value="重設" ajax="false"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
