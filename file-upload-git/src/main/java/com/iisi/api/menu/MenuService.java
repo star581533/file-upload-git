@@ -1,4 +1,4 @@
-package com.iisi.api.menu.service;
+package com.iisi.api.menu;
 
 public interface MenuService {
 	
