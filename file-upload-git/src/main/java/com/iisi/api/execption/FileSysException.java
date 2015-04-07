@@ -14,13 +14,13 @@ public class FileSysException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public FileSysException(){
 		super();
 	}
 	
 	public FileSysException(String message){
-		super(message);
+		super();
 	}
 	
 	public FileSysException(String message, Throwable cause){
@@ -30,5 +30,4 @@ public class FileSysException extends RuntimeException {
 	public FileSysException(Throwable cause){
 		super(cause);
 	}
-
 }
