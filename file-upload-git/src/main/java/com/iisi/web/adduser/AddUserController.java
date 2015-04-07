@@ -12,16 +12,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 
-
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.execption.FileSysException;
-import com.iisi.api.user.UserService;
+
 
 
 @Controller
@@ -37,6 +34,7 @@ public class AddUserController implements Serializable {
 	
 	private List<SelectItem> officeList = new ArrayList<SelectItem>();	
 		
+	
 	@PostConstruct
 	public void init(){
 //		ServletContext servletContext = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
