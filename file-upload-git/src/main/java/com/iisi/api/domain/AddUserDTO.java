@@ -20,6 +20,10 @@ public class AddUserDTO implements Serializable {
 	private String userName;
 	
 	private String roleId;
+	
+	private int userCount;
+	
+	private String userConfirm;
 
 	public String getOfficeData() {
 		return officeData;
@@ -67,6 +71,22 @@ public class AddUserDTO implements Serializable {
 
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
+	}
+	
+	public int getUserCount() {
+		return userCount;
+	}
+
+	public void setUserCount(int userCount) {
+		this.userCount = userCount;
+	}	
+
+	public String getUserConfirm() {
+		return userConfirm;
+	}
+
+	public void setUserConfirm(String userConfirm) {
+		this.userConfirm = userConfirm;
 	}
 
 	public void splitOfficeData(String data){

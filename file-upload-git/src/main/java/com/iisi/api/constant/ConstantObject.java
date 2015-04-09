@@ -10,6 +10,11 @@ public interface ConstantObject {
 	static final String INPUT_DATA = "請輸入資料";
 	
 	/**
+	 * 警告訊息-請重新再輸入資料
+	 */
+	static final String AGAIN_INPUT_DATA = "請重新再輸入資料";
+	
+	/**
 	 * 警告訊息-請輸入使用者帳號
 	 */
 	static final String WARN_MSG_INPUT_USER_ID = "請輸入使用者帳號";

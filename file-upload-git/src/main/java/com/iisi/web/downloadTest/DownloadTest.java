@@ -13,10 +13,11 @@ import javax.servlet.ServletContext;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@ViewScoped
+@Scope("reqeust")
 public class DownloadTest {
 
 	private StreamedContent file;

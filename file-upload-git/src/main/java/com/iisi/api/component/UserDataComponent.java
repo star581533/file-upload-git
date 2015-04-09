@@ -8,7 +8,7 @@ import com.iisi.api.model.User;
 public interface UserDataComponent {
 	public User querySingleUser(UserDTO dto);
 	
-	public int countUser(UserDTO dto);
+	public int countSingleUser(UserDTO dto);
 	
 	public List<User> officeUsers(UserDTO dto);
 }

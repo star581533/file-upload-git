@@ -12,8 +12,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 
+
+
+
+
+import org.primefaces.context.RequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.iisi.api.addUser.AddUserService;
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.AddUserDTO;
@@ -22,7 +30,7 @@ import com.iisi.api.execption.FileSysException;
 
 
 @Controller
-@SessionScoped
+@Scope("request")
 public class AddUserController implements Serializable {
 
 	/**
@@ -34,71 +42,22 @@ public class AddUserController implements Serializable {
 	
 	private List<SelectItem> officeList = new ArrayList<SelectItem>();	
 		
+	@Autowired
+	private AddUserService addUserService;
 	
 	@PostConstruct
-	public void init(){
-//		ServletContext servletContext = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
-//		
-//		String path = servletContext.getRealPath(File.separator + "");
-//		
-//		System.out.println("path = " + path);
-//		
-//		InputStream stream = getClass().getResourceAsStream("/main/resources/office.properties");
-//		
-//		BufferedReader br = null;
-//		
-//		StringBuilder sb = new StringBuilder();
-//		
-//		String length = "";
-//		
-//		br = new BufferedReader(new InputStreamReader(stream));
-//		
-//        try {
-//			while((length = br.readLine()) != null) { 
-//			    sb.append(length);
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally{
-//			if(br != null){
-//				try {
-//					br.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//        
-//        System.out.println(sb);
-		
-		
+	public void init(){	
 		dto = new AddUserDTO();
-		
-
-//		try {
-//			properties.load(new FileInputStream("./src/main/resources/office"));
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	
 	public void doSave(){
 		System.out.println("doSave");
 		this.verifyData();
 		
+		this.addUserService.doSave(dto);
 		
-		
-//		FacesContext context = FacesContext.getCurrentInstance();
-////		ServletContext servletContext = (ServletContext)context.getExternalContext().getContext();
-//		
-//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-//		//destroy session
-//		request.getSession().invalidate();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "新增成功", "使用者新增成功"));
+		RequestContext.getCurrentInstance().update("growl");
 	}
 	
 	private void verifyData(){		
@@ -108,20 +67,30 @@ public class AddUserController implements Serializable {
 				context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
 				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
 			}else{
-				
+				this.addUserService.checkUser(dto);
+				if(dto.getUserCount() > 0){
+					context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.AGAIN_INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
+					throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
+				}
 			}
 			
 			if(ConstantMethod.verifyColumn(dto.getUserName())){
-				context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USERNAME));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USERNAME);
-			}	
-			
-			
+				context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.ERROR_MSG_USER_EXIST));
+				throw new FileSysException(ConstantObject.ERROR_MSG_USER_EXIST);
+			}			
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}	
+	}
+	
+	public void userDataListener(){
+		if(dto.getUserCount() > 0){
+			dto.setUserConfirm("使用者帳號已存在");
+		}else{
+			dto.setUserConfirm("使用者帳號未使用");
+		}
 	}
 
 	public AddUserDTO getDto() {

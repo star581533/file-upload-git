@@ -18,8 +18,8 @@
 
 		<h:form>	
 			<p:growl id="growl" showDetail="true" sticky="true" />		
-			<p:panel id="addUserController" header="新增使用者">
-				
+			<p:panel id="addUserForm" header="新增使用者">
+				<p:remoteCommand update="addUserForm" name="updateAddUserForm" actionListener="#{addUserController.userDataListener}"/>
 				<table width="100%">
 					<tr>
 						<td align="right">
@@ -45,7 +45,10 @@
 							<h:outputText value="使用者帳號："  />
 						</td>
 						<td align="left">
-							<h:inputText value="#{addUserController.dto.userId}"/>
+							<p:inputText id="userId" value="#{addUserController.dto.userId}">
+								<p:ajax event="change" update="@form" listener="#{addUserController.userDataListener}" />
+							</p:inputText>
+							<p:outputLabel value="#{addUserController.dto.userConfirm}" />
 						</td>
 					</tr>
 					<tr>

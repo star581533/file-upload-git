@@ -12,10 +12,12 @@
  
  	<context:annotation-config/>
 
- 	<!--  -->
+ 	<!--  
  	<context:component-scan base-package="com.iisi.api.*" />
 	<context:component-scan base-package="com.iisi.core.*" />
 	<context:component-scan base-package="com.iisi.web.*" />
+	-->
+	<context:component-scan base-package="com.iisi.*"/>
  
  	<!-- mysql db -->
  	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -71,7 +73,13 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.MySQLDialect
 				</prop>
-				<prop key="hibernate.show_sql">true</prop>				
+				<!-- 要印出Hibernate中SQL的條件要加上log4j -->
+				<!-- 顯示 SQL 語法 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 顯示 SQL 語法格式化 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 加入註釋至產生出的 SQL 語法 -->	
+				<prop key="hibernate.use_sql_comments">true</prop>
 			</props>
 		</property>
 		

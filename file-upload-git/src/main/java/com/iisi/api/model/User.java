@@ -14,47 +14,47 @@ import javax.persistence.Table;
 public class User implements Serializable{
 	
 	/**
-	 * «Ø¥ß¤é´Á
+	 * å»ºç«‹æ—¥æœŸ
 	 */
 	private String createDate;
 	
 	/**
-	 * «Ø¥ß®É¶¡
+	 * å»ºç«‹æ™‚é–“
 	 */
 	private String createTime;
 	
 	/**
-	 * ±K½X¿ù»~¿é¤J¦¸¼Æ
+	 * å¯†ç¢¼éŒ¯èª¤è¼¸å…¥æ¬¡æ•¸
 	 */
 	private String loginFail;
 	
 	/**
-	 * ³æ¦ì¥N¸¹
+	 * å–®ä½ä»£è™Ÿ
 	 */
 	private String officeId;
 	
 	/**
-	 * Åv­­¥N¸¹
+	 * æ¬Šé™ä»£è™Ÿ
 	 */
 	private String roleId;
 	
 	/**
-	 * ¦bÂ¾ª¬ºA
+	 * åœ¨è·ç‹€æ…‹
 	 */
 	private String state;
 	
 	/**
-	 * ¨Ï¥ÎªÌ±b¸¹
+	 * ä½¿ç”¨è€…å¸³è™Ÿ
 	 */
 	private String userId;
 	
 	/**
-	 * ¨Ï¥ÎªÌ©m¦W
+	 * ä½¿ç”¨è€…å§“å
 	 */
 	private String userName;
 	
 	/**
-	 * ¨Ï¥ÎªÌ±K½X
+	 * ä½¿ç”¨è€…å¯†ç¢¼
 	 */
 	private String userPwd;
 

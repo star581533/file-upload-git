@@ -11,7 +11,7 @@ import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.User;
 
-@Component
+@Component("userDataComponent")
 public class UserDataComponentImpl implements UserDataComponent{
 
 	@Autowired
@@ -36,8 +36,8 @@ public class UserDataComponentImpl implements UserDataComponent{
 	}
 
 	@Override
-	public int countUser(UserDTO dto) {
-		int count = this.countUser(dto);		
+	public int countSingleUser(UserDTO dto) {
+		int count = this.officeUsers(dto).size();
 		return count;
 	}
 

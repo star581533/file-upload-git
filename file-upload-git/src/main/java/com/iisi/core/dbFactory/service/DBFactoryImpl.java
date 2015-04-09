@@ -2,6 +2,7 @@
 package com.iisi.core.dbFactory.service;
 
 import java.util.List;
+//http://www.blogjava.net/dreamstone/archive/2007/07/29/133071.html
 
 import javax.inject.Inject;
 
@@ -27,6 +28,8 @@ public class DBFactoryImpl implements DBFactory{
 			query.setParameter(param, params.get(param));
 		}
 		
+		this.flush();
+		
 		List<?> lists = query.list();
 		return lists;
 	}
@@ -40,9 +43,19 @@ public class DBFactoryImpl implements DBFactory{
 	}
 	
 	public <T> void insert(T t){
-		sessionFactory.getCurrentSession().persist(t);
+		System.out.println("---------------------insert------------------------");
+//		sessionFactory.getCurrentSession().persist(t);
+		Class entityClass = t.getClass();
+		String tableName = entityClass.getName();
+		System.out.println("tableName = " + tableName);
+		System.out.println("t.toString = " + t.toString());
+		sessionFactory.getCurrentSession().save(tableName, t);
 	}
 
+	private void flush(){
+		sessionFactory.getCurrentSession().flush();
+	}
+	
 	public SessionFactory getSesonFactory() {
 		return sessionFactory;
 	}
