@@ -1,6 +1,7 @@
 //http://www.mkyong.com/jsf2/jsf-2-dropdown-box-example/
 //http://haohaoxuexi.iteye.com/blog/1190526
 //http://blog.xuite.net/snowtech/blog/203139963-Spring+Annotation%E7%AD%86%E8%A8%98
+//http://zhou137520.iteye.com/blog/1672305
 package com.iisi.web.queryuser;
 
 import java.io.Serializable;
@@ -33,7 +34,7 @@ public class QueryUserController implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private QueryUserDTO dto;
+	private QueryUserDTO dto = new QueryUserDTO();;
 	
 	private String officeAll;
 	
