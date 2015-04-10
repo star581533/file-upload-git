@@ -7,9 +7,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
 
 
 
@@ -50,14 +50,20 @@ public class AddUserController implements Serializable {
 		dto = new AddUserDTO();
 	}
 	
-	public void doSave(){
+	public void doSave(){		
 		System.out.println("doSave");
+		
 		this.verifyData();
 		
-		this.addUserService.doSave(dto);
+		if(dto.getUserCount() > 0){
+			this.addUserService.doSave(dto);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "新增成功", "使用者新增成功"));
+			RequestContext.getCurrentInstance().update("growl");
+		}else{
+			throw new FileSysException("資料已存在");
+		}
 		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "新增成功", "使用者新增成功"));
-		RequestContext.getCurrentInstance().update("growl");
+
 	}
 	
 	private void verifyData(){		
@@ -79,13 +85,15 @@ public class AddUserController implements Serializable {
 				throw new FileSysException(ConstantObject.ERROR_MSG_USER_EXIST);
 			}			
 		}catch(FileSysException e){
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
+//			throw e;
+			System.out.println(e.getMessage());
 		}	
 	}
 	
 	public void userDataListener(){
+		System.out.println("userdataListener userId = " + dto.getUserId());
+		System.out.println("userdataListener officeId = " + dto.getOfficeId());
+		this.addUserService.checkUser(dto);		
 		if(dto.getUserCount() > 0){
 			dto.setUserConfirm("使用者帳號已存在");
 		}else{

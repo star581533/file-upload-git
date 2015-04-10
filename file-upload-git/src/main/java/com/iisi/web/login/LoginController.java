@@ -3,13 +3,12 @@
 package com.iisi.web.login;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,20 +41,20 @@ public class LoginController implements Serializable{
 	
 	public String loginButton(){	
 		this.verify();
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-		
-		String userId = request.getParameter("userId");
-		System.out.println("login userId = " + userId);
-		
-		//destroy session
-		request.getSession().invalidate();
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+//		
+//		String userId = request.getParameter("userId");
+//		System.out.println("login userId = " + userId);
+//		
+//		//destroy session
+//		request.getSession().invalidate();
 		
 		if(dto.isCheckLogin()){
 			if(dto.getUserId().equals(dto.getUser().getUserId())){
-				request.getSession().setAttribute("userId", dto.getUser().getUserId());
-				request.getSession().setAttribute("userName", dto.getUser().getUserName());
-				request.getSession().setAttribute("user", dto.getUser());
+//				request.getSession().setAttribute("userId", dto.getUser().getUserId());
+//				request.getSession().setAttribute("userName", dto.getUser().getUserName());
+//				request.getSession().setAttribute("user", dto.getUser());
 				return "index.xhtml?faces-redirect=true";
 			}
 		}

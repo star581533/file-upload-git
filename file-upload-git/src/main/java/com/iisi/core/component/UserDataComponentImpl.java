@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.iisi.api.component.UserDataComponent;
+import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.User;
@@ -18,7 +19,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 	private DBFactory dbFactory;
 	
 	@Override
-	public User querySingleUser(UserDTO dto) {
+	public List<User> queryUser(UserDTO dto){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * from user where userid = ? and officeid = ?");
 
@@ -27,31 +28,46 @@ public class UserDataComponentImpl implements UserDataComponent{
 		params.add(dto.getOfficeId());
 		
 		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
-
-		User user = new User();		
-		if(users.size() > 0){
-			user = users.get(0);
-		}		
-		return user;
+	
+		return users;
 	}
+	
 
 	@Override
 	public int countSingleUser(UserDTO dto) {
-		int count = this.officeUsers(dto).size();
+		int count = this.queryUser(dto).size();
 		return count;
 	}
 
 	@Override
-	public List<User> officeUsers(UserDTO dto) {
-		StringBuilder sql = new StringBuilder();
-		sql.append("select * from user where userid = ? and officeid = ?");
-
+	public List<User> queryOfficeUsers(UserDTO dto) {
 		List<String> params = new ArrayList<String>();
-		params.add(dto.getUserId());
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("select * from user where officeid = ? ");		
 		params.add(dto.getOfficeId());
+		
+		if(!ConstantMethod.verifyColumn(dto.getState())){
+			sql.append("and state = ?");
+			params.add(dto.getState());
+		}
 		
 		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
 		return users;
+	}
+
+
+	@Override
+	public List<User> queryAllUser() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from user");
+
+		List<String> params = new ArrayList<String>();
+		
+		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		
+		return users;
+
 	}
 
 }

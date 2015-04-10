@@ -59,7 +59,7 @@ public class User implements Serializable{
 	private String userPwd;
 
 	@Id
-	@Column(name="officeid", unique=false, nullable=false, length=3)
+	@Column(name="officeid", unique=false, length=3)
 	public String getOfficeId() {
 		return officeId;
 	}

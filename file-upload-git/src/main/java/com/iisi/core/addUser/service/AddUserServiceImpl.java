@@ -48,8 +48,10 @@ public class AddUserServiceImpl implements AddUserService{
 			dbFactory.insert(user);
 		}catch(FileSysException e){
 			e.printStackTrace();
+			throw e;
 		}catch(Exception e){
 			e.printStackTrace();
+			throw new FileSysException("新增使用者失敗");
 		}	
 	}
 

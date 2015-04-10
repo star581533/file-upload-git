@@ -27,6 +27,7 @@
 							</td>	
 							<td>
 								<p:selectOneMenu id="officeId" value="#{queryUserController.dto.officeId}">
+									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItem itemLabel="系統管理員" itemValue="000" />
 							     	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
 							     	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
@@ -58,7 +59,10 @@
 					</table>
 				</p:fieldset>
 				<p:fieldset legend="使用者資訊" id="resultList" rendered="#{queryUserController.dto.users != null}">					
-					<p:dataTable  var="user" value="#{queryUserController.dto.users}" rows="10" paginator="true" rowsPerPageTemplate="5,10,15">
+					<p:dataTable  var="user" value="#{queryUserController.users}" rows="10" 
+									paginator="true" 
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15">
 						<p:column headerText="科別">
 							<h:outputText value="#{user.officeId}" />
 						</p:column>

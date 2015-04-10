@@ -4,14 +4,18 @@ package com.iisi.core.dbFactory.service;
 import java.util.List;
 //http://www.blogjava.net/dreamstone/archive/2007/07/29/133071.html
 
+
+
 import javax.inject.Inject;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iisi.api.db.DBFactory;
+import com.iisi.api.execption.FileSysException;
 
 @Component
 @Qualifier("dbFactory")
@@ -42,14 +46,21 @@ public class DBFactoryImpl implements DBFactory{
 		sessionFactory.getCurrentSession().delete(t);
 	}
 	
+	//http://www.codedata.com.tw/java/hibernate-lazy-loading/
+	@Transactional
 	public <T> void insert(T t){
-		System.out.println("---------------------insert------------------------");
-//		sessionFactory.getCurrentSession().persist(t);
-		Class entityClass = t.getClass();
-		String tableName = entityClass.getName();
-		System.out.println("tableName = " + tableName);
-		System.out.println("t.toString = " + t.toString());
-		sessionFactory.getCurrentSession().save(tableName, t);
+		try{
+			Class entityClass = t.getClass();
+			String tableName = entityClass.getName();
+			System.out.println("tableName = " + tableName);
+			System.out.println("t.toString = " + t.toString());
+			sessionFactory.getCurrentSession().save(tableName, t);
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void flush(){

@@ -6,9 +6,12 @@ import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.User;
 
 public interface UserDataComponent {
-	public User querySingleUser(UserDTO dto);
+	
+	public List<User> queryUser(UserDTO dto);
 	
 	public int countSingleUser(UserDTO dto);
 	
-	public List<User> officeUsers(UserDTO dto);
+	public List<User> queryOfficeUsers(UserDTO dto);
+	
+	public List<User> queryAllUser();
 }

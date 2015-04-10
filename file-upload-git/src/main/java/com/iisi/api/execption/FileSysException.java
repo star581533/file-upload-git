@@ -14,20 +14,16 @@ public class FileSysException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public FileSysException(){
-		super();
-	}
 	
 	public FileSysException(String message){
-		super();
+		super(genExceptionMessage(message));
 	}
 	
 	public FileSysException(String message, Throwable cause){
-		super(message, cause);
+		super(genExceptionMessage(message), cause);
 	}
 	
-	public FileSysException(Throwable cause){
-		super(cause);
+	private static String genExceptionMessage(String error){
+		return error;
 	}
 }

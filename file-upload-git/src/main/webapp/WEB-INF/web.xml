@@ -17,12 +17,13 @@
 			com.sun.faces.config.ConfigureListener
 		</listener-class>
 	</listener>
+	<!-- 
 	<listener>
 		<listener-class>
 			com.iisi.web.listener.UserSessionListener
 		</listener-class>
 	</listener>
-	
+	 -->
 	<!-- 一定要在ContextLoaderListener設定之前加上Log4jConfigListener設定，如此一來ContextLoaderListener才可以正常運作 -->
   	<listener>
     	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>

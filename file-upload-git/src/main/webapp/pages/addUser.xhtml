@@ -18,68 +18,70 @@
 
 		<h:form>	
 			<p:growl id="growl" showDetail="true" sticky="true" />		
-			<p:panel id="addUserForm" header="新增使用者">
-				<p:remoteCommand update="addUserForm" name="updateAddUserForm" actionListener="#{addUserController.userDataListener}"/>
-				<table width="100%">
-					<tr>
-						<td align="right">
-							<font color="red" size="1">*</font>
-							<h:outputText value="科別：" />
-						</td>
-						<td align="left">
-							<p:selectOneMenu id="officeId" value="#{addUserController.dto.officeId}">
-								<f:selectItem itemLabel="系統管理員" itemValue="000" />
-						     	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
-						     	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
-						     	<f:selectItem itemLabel="戶口調查科" itemValue="003" />
-						     	<f:selectItem itemLabel="人口政策科" itemValue="004" />
-						     	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
-						     	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
-						     	<f:selectItem itemLabel="戶政司" itemValue="111" />
-						    </p:selectOneMenu>	
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-							<font color="red" size="1">*</font>
-							<h:outputText value="使用者帳號："  />
-						</td>
-						<td align="left">
-							<p:inputText id="userId" value="#{addUserController.dto.userId}">
-								<p:ajax event="change" update="@form" listener="#{addUserController.userDataListener}" />
-							</p:inputText>
-							<p:outputLabel value="#{addUserController.dto.userConfirm}" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-							<font color="red" size="1">*</font>
-							<h:outputText value="使用者姓名：" />
-						</td>
-						<td align="left">
-							<h:inputText value="#{addUserController.dto.userName}"/>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-							<font color="red" size="1">*</font>
-							<h:outputText value="使用者權限" />
-						</td>
-						<td align="left">
-							<p:selectOneMenu id="roleId" value="#{addUserController.dto.roleId}">
-								<f:selectItem itemLabel="系統管理者" itemValue="1"/>
-								<f:selectItem itemLabel="查詢群組管理者" itemValue="2"/>
-								<f:selectItem itemLabel="查詢人員" itemValue="3"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="center">
-							<p:commandButton value="確定" action="#{addUserController.doSave}" update="growl" ajax="false"/>
-			   				<p:commandButton value="重設" ajax="false"/>
-						</td>
-					</tr>
-				</table>			
+			<p:panel id="addUserPanel" header="新增使用者">
+				<p:fieldset id="addUserForm" legend="新增使用者">
+					<table width="100%">
+						<tr>
+							<td align="right">
+								<font color="red" size="1">*</font>
+								<h:outputText value="科別：" />
+							</td>
+							<td align="left">
+								<p:selectOneMenu id="officeId" value="#{addUserController.dto.officeId}">
+									<f:selectItem itemLabel="系統管理員" itemValue="000" />
+							     	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
+							     	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
+							     	<f:selectItem itemLabel="戶口調查科" itemValue="003" />
+							     	<f:selectItem itemLabel="人口政策科" itemValue="004" />
+							     	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
+							     	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
+							     	<f:selectItem itemLabel="戶政司" itemValue="111" />
+							     	<p:ajax event="change" update="@form" />
+							    </p:selectOneMenu>	
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<font color="red" size="1">*</font>
+								<h:outputText value="使用者帳號："  />
+							</td>
+							<td align="left">
+								<p:inputText id="userId" value="#{addUserController.dto.userId}">
+									<p:ajax event="change" update="@form" listener="#{addUserController.userDataListener}" /> 
+								</p:inputText>
+								<p:outputLabel value="#{addUserController.dto.userConfirm}" />
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<font color="red" size="1">*</font>
+								<h:outputText value="使用者姓名：" />
+							</td>
+							<td align="left">
+								<h:inputText value="#{addUserController.dto.userName}"/>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<font color="red" size="1">*</font>
+								<h:outputText value="使用者權限" />
+							</td>
+							<td align="left">
+								<p:selectOneMenu id="roleId" value="#{addUserController.dto.roleId}">
+									<f:selectItem itemLabel="系統管理者" itemValue="1"/>
+									<f:selectItem itemLabel="查詢群組管理者" itemValue="2"/>
+									<f:selectItem itemLabel="查詢人員" itemValue="3"/>
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<p:commandButton value="確定" action="#{addUserController.doSave}" update="growl" ajax="false"/>
+				   				<p:commandButton value="重設" ajax="false"/>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>			
 			</p:panel>	
 							
 		</h:form>
