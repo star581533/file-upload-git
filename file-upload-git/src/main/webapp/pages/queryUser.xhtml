@@ -59,7 +59,7 @@
 					</table>
 				</p:fieldset>
 				<p:fieldset legend="使用者資訊" id="resultList" rendered="#{queryUserController.dto.users != null}">					
-					<p:dataTable  var="user" value="#{queryUserController.users}" rows="10" 
+					<p:dataTable  var="user" value="#{queryUserController.dto.users}" rows="10" 
 									paginator="true" 
 									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									rowsPerPageTemplate="5,10,15">

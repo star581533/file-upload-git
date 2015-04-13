@@ -9,8 +9,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,13 +25,16 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.QueryUserDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.menu.MenuService;
-import com.iisi.api.model.User;
 import com.iisi.api.queryUser.QueryUserService;
 
 
 
-@Controller
-@Scope("session")
+//@Controller
+//@Scope("request")
+@ManagedBean
+//@RequestScoped
+@ViewScoped
+//@SessionScoped
 public class QueryUserController implements Serializable{
 
 	/**
@@ -37,10 +45,19 @@ public class QueryUserController implements Serializable{
 	private QueryUserDTO dto = new QueryUserDTO();;
 	
 	private String officeAll;
-	
-	private List<User> users;
 					
-	@Autowired
+
+	public QueryUserService getQueryUserService() {
+		return queryUserService;
+	}
+
+
+	public void setQueryUserService(QueryUserService queryUserService) {
+		this.queryUserService = queryUserService;
+	}
+
+
+	@ManagedProperty(value="#{queryUserService}")
 	private QueryUserService queryUserService;	
 	
 	@PostConstruct
@@ -50,7 +67,7 @@ public class QueryUserController implements Serializable{
 	}
 	
 		
-	public void queryButton(){
+	public String queryButton(){
 		System.out.println("queryButton");
 		
 //		FacesContext context = FacesContext.getCurrentInstance();
@@ -64,7 +81,7 @@ public class QueryUserController implements Serializable{
 		
 		dto.setUsers(queryUserService.getUserList(dto));
 		System.out.println("dto.getUsers().size() = " + dto.getUsers().size());
-		this.setUsers(dto.getUsers());
+		return null;
 	}
 	
 	public void userDataLink(ActionEvent event){
@@ -104,14 +121,4 @@ public class QueryUserController implements Serializable{
 	public void setOfficeAll(String officeAll) {
 		this.officeAll = officeAll;
 	}
-
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}	
 }
