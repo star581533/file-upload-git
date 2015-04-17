@@ -1,27 +1,22 @@
 package com.iisi.web.loginlogquery;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.LoginLogQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.loginLogQuery.LoginLogQueryService;
-import com.iisi.api.model.Office;
-import com.iisi.api.office.OfficeService;
 
-@Controller
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class LoginLogQueryController implements Serializable {
 
 	/**
@@ -31,18 +26,15 @@ public class LoginLogQueryController implements Serializable {
 	
 	private LoginLogQueryDTO dto;
 	
-	@Autowired
+	@ManagedProperty(value = "#{loginLogQueryService}")
 	private LoginLogQueryService loginLogQueryService;
 	
 	private String officeAll;
 	
-	@Autowired
-	private OfficeService officeService;
 	
 	@PostConstruct
 	public void init(){
 		dto = new LoginLogQueryDTO();
-//		List<SelectItem> items = officeService.getOfficeItems();
 	}
 
 	public void doQuery(){
@@ -56,12 +48,12 @@ public class LoginLogQueryController implements Serializable {
 	
 	private void verifyData(){
 		FacesContext context = FacesContext.getCurrentInstance();
-		//°_©l¤é
+		//èµ·å§‹æ—¥
 		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
-		//¨´¤î¤é
+		//è¿„æ­¢æ—¥
 		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
@@ -83,6 +75,12 @@ public class LoginLogQueryController implements Serializable {
 	public void setOfficeAll(String officeAll) {
 		this.officeAll = officeAll;
 	}
-	
-	
+
+	public LoginLogQueryService getLoginLogQueryService() {
+		return loginLogQueryService;
+	}
+
+	public void setLoginLogQueryService(LoginLogQueryService loginLogQueryService) {
+		this.loginLogQueryService = loginLogQueryService;
+	}	
 }

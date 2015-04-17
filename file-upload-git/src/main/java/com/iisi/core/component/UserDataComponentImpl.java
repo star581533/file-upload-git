@@ -58,12 +58,15 @@ public class UserDataComponentImpl implements UserDataComponent{
 
 
 	@Override
-	public List<User> queryAllUser() {
-		StringBuilder sql = new StringBuilder();
-		sql.append("select * from user");
-
+	public List<User> queryAllUser(UserDTO dto) {
 		List<String> params = new ArrayList<String>();
-		
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from user ");
+		if(!ConstantMethod.verifyColumn(dto.getState())){
+			sql.append("where state = ? ");
+			params.add(dto.getState());
+		}	
+		System.out.println("query All User sql = " + sql.toString());
 		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
 		
 		return users;

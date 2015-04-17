@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantMethod;
+import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.QueryUserDTO;
 import com.iisi.api.domain.UserDTO;
@@ -25,11 +26,14 @@ public class QueryUserServiceImpl implements QueryUserService {
 	@Override
 	public List<User> getUserList(QueryUserDTO dto) {
 		List<User> users = new ArrayList<User>();
+		UserDTO userDto = new UserDTO();
 		
 		if(ConstantMethod.verifyColumn(dto.getOfficeId())){
-			users = userDataComponent.queryAllUser();
-		}else{
-			UserDTO userDto = new UserDTO();
+			if(!dto.getState().equals(ConstantObject.UPPER_CASE_A)){
+				userDto.setState(dto.getState());	
+			}			
+			users = userDataComponent.queryAllUser(userDto);
+		}else{			
 			userDto.setOfficeId(dto.getOfficeId());
 			userDto.setState(dto.getState());
 			users = userDataComponent.queryOfficeUsers(userDto);

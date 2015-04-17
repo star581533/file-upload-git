@@ -13,5 +13,5 @@ public interface UserDataComponent {
 	
 	public List<User> queryOfficeUsers(UserDTO dto);
 	
-	public List<User> queryAllUser();
+	public List<User> queryAllUser(UserDTO dto);
 }

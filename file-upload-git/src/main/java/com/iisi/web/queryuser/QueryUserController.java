@@ -5,21 +5,16 @@
 package com.iisi.web.queryuser;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.QueryUserDTO;
@@ -29,12 +24,8 @@ import com.iisi.api.queryUser.QueryUserService;
 
 
 
-//@Controller
-//@Scope("request")
 @ManagedBean
-//@RequestScoped
 @ViewScoped
-//@SessionScoped
 public class QueryUserController implements Serializable{
 
 	/**
@@ -62,21 +53,13 @@ public class QueryUserController implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		System.out.println("-------------------------------QueryUserController init---------------------------");
 		dto = new QueryUserDTO();
 	}
 	
 		
 	public String queryButton(){
 		System.out.println("queryButton");
-		
-//		FacesContext context = FacesContext.getCurrentInstance();
-////		ServletContext servletContext = (ServletContext)context.getExternalContext().getContext();
-//		
-//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-//		//destroy session
-//		request.getSession().invalidate();
-		
+				
 		this.verifyData();
 		
 		dto.setUsers(queryUserService.getUserList(dto));

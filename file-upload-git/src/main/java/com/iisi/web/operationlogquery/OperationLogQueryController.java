@@ -1,12 +1,13 @@
 package com.iisi.web.operationlogquery;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.OperationLogQueryDTO;
@@ -14,17 +15,20 @@ import com.iisi.api.execption.FileSysException;
 import com.iisi.api.operationLog.OperationLogService;
 
 
-@Controller
-@SessionScoped
-public class OperationLogQueryController{
+@ManagedBean
+@ViewScoped
+public class OperationLogQueryController implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private OperationLogQueryDTO dto;
 	
-	@Autowired
+	@ManagedProperty(value="#{operationLogService}")
 	private OperationLogService operationLogService;
-	
-	private String officeAll;
-	
+		
 	@PostConstruct
 	public void init(){
 		dto = new OperationLogQueryDTO();
@@ -38,12 +42,12 @@ public class OperationLogQueryController{
 	private void verifyData(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		//°_©l¤é
+		//èµ·å§‹æ—¥
 		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
-		//¨´¤î¤é
+		//è¿„æ­¢æ—¥
 		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
@@ -58,13 +62,11 @@ public class OperationLogQueryController{
 		this.dto = dto;
 	}
 
-	public String getOfficeAll() {
-		return officeAll;
+	public OperationLogService getOperationLogService() {
+		return operationLogService;
 	}
 
-	public void setOfficeAll(String officeAll) {
-		this.officeAll = officeAll;
+	public void setOperationLogService(OperationLogService operationLogService) {
+		this.operationLogService = operationLogService;
 	}	
-	
-	
 }
