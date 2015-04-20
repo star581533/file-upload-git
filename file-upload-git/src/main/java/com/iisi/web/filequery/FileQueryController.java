@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileQuery.FileQueryService;
 
-@Controller
-@SessionScoped
+@ManagedBean
+@ViewScoped
 public class FileQueryController implements Serializable {
 
 	/**
@@ -26,7 +26,8 @@ public class FileQueryController implements Serializable {
 	
 	private FileQueryDTO dto;
 	
-	@Autowired
+//	@Autowired
+	@ManagedProperty(value="#{fileQueryService}")
 	private FileQueryService fileQueryService;
 	
 	@PostConstruct
@@ -47,17 +48,17 @@ public class FileQueryController implements Serializable {
 	
 	private void verifyData(){
 		FacesContext context = FacesContext.getCurrentInstance();
-		//Ãþ«¬
+		//ï¿½ï¿½ï¿½ï¿½
 		if(null == dto.getType() || dto.getType().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
-		//°_©l¤é
+		//ï¿½_ï¿½lï¿½ï¿½
 		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
-		//¨´¤î¤é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
@@ -70,5 +71,13 @@ public class FileQueryController implements Serializable {
 
 	public void setDto(FileQueryDTO dto) {
 		this.dto = dto;
+	}
+
+	public FileQueryService getFileQueryService() {
+		return fileQueryService;
+	}
+
+	public void setFileQueryService(FileQueryService fileQueryService) {
+		this.fileQueryService = fileQueryService;
 	}
 }

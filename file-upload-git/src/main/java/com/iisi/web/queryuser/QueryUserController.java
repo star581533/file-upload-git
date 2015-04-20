@@ -22,8 +22,6 @@ import com.iisi.api.execption.FileSysException;
 import com.iisi.api.menu.MenuService;
 import com.iisi.api.queryUser.QueryUserService;
 
-
-
 @ManagedBean
 @ViewScoped
 public class QueryUserController implements Serializable{

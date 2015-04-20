@@ -6,19 +6,20 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.LoginDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.login.LoginService;
 
-@Controller
+@ManagedBean
 @RequestScoped
 public class LoginController implements Serializable{
 	

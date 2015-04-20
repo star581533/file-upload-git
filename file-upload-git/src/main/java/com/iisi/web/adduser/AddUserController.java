@@ -7,19 +7,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-
-
-
-
-
-
 import org.primefaces.context.RequestContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.addUser.AddUserService;
 import com.iisi.api.constant.ConstantMethod;
@@ -27,10 +21,8 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.execption.FileSysException;
 
-
-
-@Controller
-@Scope("request")
+@ManagedBean
+@RequestScoped
 public class AddUserController implements Serializable {
 
 	/**
@@ -42,7 +34,8 @@ public class AddUserController implements Serializable {
 	
 	private List<SelectItem> officeList = new ArrayList<SelectItem>();	
 		
-	@Autowired
+//	@Autowired
+	@ManagedProperty(value="#{addUserService}")
 	private AddUserService addUserService;
 	
 	@PostConstruct
@@ -116,5 +109,12 @@ public class AddUserController implements Serializable {
 	public void setOfficeList(List<SelectItem> officeList) {
 		this.officeList = officeList;
 	}
-		
+
+	public AddUserService getAddUserService() {
+		return addUserService;
+	}
+
+	public void setAddUserService(AddUserService addUserService) {
+		this.addUserService = addUserService;
+	}
 }

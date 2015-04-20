@@ -2,16 +2,17 @@ package com.iisi.web.menu;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.menu.MenuService;
 
-@Controller
+@ManagedBean
+@RequestScoped
 public class MenuController {
 	
 	private MenuModel model;

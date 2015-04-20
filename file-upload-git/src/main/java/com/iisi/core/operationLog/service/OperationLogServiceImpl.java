@@ -1,5 +1,6 @@
 package com.iisi.core.operationLog.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import com.iisi.api.model.OperationLog;
 import com.iisi.api.operationLog.OperationLogService;
 
 @Service("operationLogService")
-public class OperationLogServiceImpl implements OperationLogService {
+public class OperationLogServiceImpl implements OperationLogService, Serializable {
 
 	@Autowired
 	private DBFactory dbFactory;

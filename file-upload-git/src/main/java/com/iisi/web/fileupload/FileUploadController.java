@@ -2,27 +2,22 @@
 package com.iisi.web.fileupload;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.model.UploadedFile;
-import org.springframework.stereotype.Controller;
 
 import com.iisi.api.domain.FileUploadDTO;
 
 
-@Controller
-@SessionScoped
+@ManagedBean
+@RequestScoped
 public class FileUploadController implements Serializable {
 	
 	/**
@@ -43,18 +38,18 @@ public class FileUploadController implements Serializable {
 		
 	}
 	
-	private void verifyData(){
-			
-	}
-	
-	private boolean verifyString(String str){
-		boolean rtnBool = false;
-		
-		if(null == str || str.length() == 0){
-			rtnBool = true;
-		}		
-		return rtnBool;
-	}
+//	private void verifyData(){
+//			
+//	}
+//	
+//	private boolean verifyString(String str){
+//		boolean rtnBool = false;
+//		
+//		if(null == str || str.length() == 0){
+//			rtnBool = true;
+//		}		
+//		return rtnBool;
+//	}
 
 	public void doSubmit(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
