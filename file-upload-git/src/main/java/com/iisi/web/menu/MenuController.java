@@ -71,6 +71,13 @@ public class MenuController {
 		logQueryMenu.addElement(item);
 		
 		model.addElement(logQueryMenu);
+		
+		DefaultSubMenu logOutMenu = new DefaultSubMenu("");
+		item = new DefaultMenuItem("登出");
+		item.setCommand("#{menuController.login}");
+		logOutMenu.addElement(item);
+		
+		model.addElement(logOutMenu);
 	}
 	
 	public String addUser(){
@@ -107,6 +114,10 @@ public class MenuController {
 	
 	public String updateUser(){
 		return MenuService.UPDATE_USER;
+	}
+	
+	public String login(){
+		return MenuService.LOGIN;
 	}
 	
 	public MenuModel getModel() {

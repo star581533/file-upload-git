@@ -13,8 +13,7 @@ import com.iisi.api.domain.LoginDTO;
 import com.iisi.api.login.LoginService;
 import com.iisi.api.model.User;
 
-@Component
-@Qualifier("loginService")
+@Service("loginService")
 public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
