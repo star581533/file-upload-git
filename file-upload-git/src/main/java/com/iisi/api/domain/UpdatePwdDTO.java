@@ -15,6 +15,8 @@ public class UpdatePwdDTO implements Serializable {
 	private String newPassWord;
 	
 	private String confirmPassWord;
+	
+	private String officeId;
 
 	public String getUserId() {
 		return userId;
@@ -47,4 +49,12 @@ public class UpdatePwdDTO implements Serializable {
 	public void setConfirmPassWord(String confirmPassWord) {
 		this.confirmPassWord = confirmPassWord;
 	}
+
+	public String getOfficeId() {
+		return officeId;
+	}
+
+	public void setOfficeId(String officeId) {
+		this.officeId = officeId;
+	}	
 }

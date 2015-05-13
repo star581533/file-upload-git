@@ -137,7 +137,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		
+				
 		<!-- H2DB -->
 		<dependency>
 			<groupId>com.h2database</groupId>

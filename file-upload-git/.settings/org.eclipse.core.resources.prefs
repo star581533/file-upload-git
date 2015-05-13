@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/iisi/api/constant/ConstantObject.java=UTF-8
+encoding//src/main/java/com/iisi/web/adduser/AddUserController.java=UTF-8
 encoding//src/main/java/com/iisi/web/index/IndexController.java=UTF-8
 encoding//src/main/java/com/iisi/web/menu/MenuController.java=UTF-8
 encoding/<project>=UTF-8
