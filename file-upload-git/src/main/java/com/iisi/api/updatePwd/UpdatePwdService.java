@@ -6,5 +6,7 @@ public interface UpdatePwdService {
 	
 	public int checkUser(UpdatePwdDTO dto);
 	
+	public boolean checkUserPassword(UpdatePwdDTO dto);
+	
 	public void updatePassword(UpdatePwdDTO dto);
 }
