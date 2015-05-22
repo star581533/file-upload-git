@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import org.primefaces.model.UploadedFile;
 
+import com.iisi.api.model.FileData;
+import com.iisi.api.model.User;
+
 public class FileUploadDTO implements Serializable  {
 	
 	/**
@@ -15,10 +18,8 @@ public class FileUploadDTO implements Serializable  {
 	
 	private String secret;
 	
-	private String startDate;
-	
-	private String endDate;
-	
+	private String disPatchDate;
+		
 	private String classNum;
 	
 	private String disPatchNum;
@@ -29,6 +30,10 @@ public class FileUploadDTO implements Serializable  {
 	
 	private UploadedFile uploadFile;
 
+	private User user;
+	
+	private FileData fileData;
+	
 	public String getType() {
 		return type;
 	}
@@ -45,20 +50,12 @@ public class FileUploadDTO implements Serializable  {
 		this.secret = secret;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public String getDisPatchDate() {
+		return disPatchDate;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setDisPatchDate(String disPatchDate) {
+		this.disPatchDate = disPatchDate;
 	}
 
 	public String getClassNum() {
@@ -99,5 +96,21 @@ public class FileUploadDTO implements Serializable  {
 
 	public void setUploadFile(UploadedFile uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public FileData getFileData() {
+		return fileData;
+	}
+
+	public void setFileData(FileData fileData) {
+		this.fileData = fileData;
 	}	
 }

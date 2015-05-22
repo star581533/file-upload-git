@@ -38,4 +38,12 @@ public class ConstantMethod {
 		
 		return bool;
 	}
+
+	public static boolean testCompare(String one, String two){
+		return one == null ? two == null : one.equals(two);
+	}
+	
+	public static boolean testCompare1(String one, String two){
+		return (one == two || (one != null && one.equals(two)));
+	}
 }

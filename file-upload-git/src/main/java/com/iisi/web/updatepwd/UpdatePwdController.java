@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.UpdatePwdDTO;
@@ -25,6 +26,7 @@ import com.iisi.api.menu.MenuService;
 import com.iisi.api.model.ExecutantType;
 import com.iisi.api.model.User;
 import com.iisi.api.updatePwd.UpdatePwdService;
+import com.iisi.web.check.Checker;
 
 
 @ManagedBean
@@ -54,22 +56,27 @@ public class UpdatePwdController implements Serializable {
 //		System.out.println("fileSysUserUtil.getExecutant() = " + this.fileSysUserUtil.getExecutant());
 //		
 //		this.executant = this.fileSysUserUtil.getExecutant();
-		
+				
 		
 		dto = new UpdatePwdDTO();
 		
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-		
-		User user = (User)request.getSession().getAttribute("user");
-		
-		System.out.println("user = " + user.toString());
-		
-		dto.setUserId(user.getUserId());
-		dto.setOfficeId(user.getOfficeId());
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+//		
+//		User user = (User)request.getSession().getAttribute("user");
+		User user = Checker.getUser();
+		if(user != null){
+			System.out.println("user = " + user.toString());
+			
+			dto.setUserId(user.getUserId());
+			dto.setOfficeId(user.getOfficeId());
+		}else{
+			this.error();
+		}
 	}
 	
-	private String error(){
+	public String error(){
+		System.out.println("error");
 		return MenuService.LOGIN;
 	}
 	
@@ -124,7 +131,7 @@ public class UpdatePwdController implements Serializable {
 			System.out.println(e.getMessage());
 		}	
 	}
-
+	
 	public UpdatePwdDTO getDto() {
 		return dto;
 	}

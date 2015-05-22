@@ -65,6 +65,11 @@ public interface ConstantObject {
 	public static final String WARN_MSG_INPUT_CLASSNUM = "請輸入分類號";
 	
 	/**
+	 * 警告訊息-請輸入日期
+	 */
+	public static final String WARN_MSG_INPUT_DATE = "請輸入日期";
+		
+	/**
 	 * 警告訊息-請輸入公文文號
 	 */
 	public static final String WARN_MSG_INPUT_DISPATCHNUM = "請輸入公文文號";
@@ -123,7 +128,7 @@ public interface ConstantObject {
 	 * 警告訊息-請輸入使用者權限
 	 */
 	public static final String WARN_MSG_INPUT_ROLEID = "請輸入使用者權限";
-	
+		
 	/** ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑	警告訊息   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 	
 	/** ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓	錯誤訊息   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
@@ -163,6 +168,15 @@ public interface ConstantObject {
 	 */
 	public static final String INFO_MSG_ADD_USER_DATA = "新增使用者資料成功";
 		
+	/**
+	 * 成功訊息-更新使用者密碼成功
+	 */
+	public static final String INFO_MSG_UPDATE_USER_PASSWORD = "更新使用者密碼成功";
+	
+	/**
+	 * 成功訊息-更新使用者資料成功
+	 */
+	public static final String INFO_MSG_UPDATE_USER_DATA = "更新使用者資料成功";
 	
 	/** ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑	成功訊息   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 	
@@ -347,6 +361,136 @@ public interface ConstantObject {
 	 * 共用文字-字串-大寫-Z
 	 */
 	public static final String UPPER_CASE_Z = "Z";
+	
+	/**
+	 * 共用文字-字串-小寫-a
+	 */
+	public static final String LOWER_CASE_A = "a";
+	
+	/**
+	 * 共用文字-字串-小寫-b
+	 */
+	public static final String LOWER_CASE_B = "b";
+
+	/**
+	 * 共用文字-字串-小寫-c
+	 */
+	public static final String LOWER_CASE_C = "c";
+
+	/**
+	 * 共用文字-字串-小寫-d
+	 */
+	public static final String LOWER_CASE_D = "d";
+
+	/**
+	 * 共用文字-字串-小寫-e
+	 */
+	public static final String LOWER_CASE_E = "e";
+
+	/**
+	 * 共用文字-字串-小寫-f
+	 */
+	public static final String LOWER_CASE_F = "f";
+
+	/**
+	 * 共用文字-字串-小寫-g
+	 */
+	public static final String LOWER_CASE_G = "g";
+
+	/**
+	 * 共用文字-字串-小寫-h
+	 */
+	public static final String LOWER_CASE_H = "h";
+
+	/**
+	 * 共用文字-字串-小寫-i
+	 */
+	public static final String LOWER_CASE_I = "i";
+
+	/**
+	 * 共用文字-字串-小寫-j
+	 */
+	public static final String LOWER_CASE_J = "j";
+
+	/**
+	 * 共用文字-字串-小寫-k
+	 */
+	public static final String LOWER_CASE_K = "k";
+
+	/**
+	 * 共用文字-字串-小寫-l
+	 */
+	public static final String LOWER_CASE_L = "l";
+
+	/**
+	 * 共用文字-字串-小寫-m
+	 */
+	public static final String LOWER_CASE_M = "m";
+
+	/**
+	 * 共用文字-字串-小寫-n
+	 */
+	public static final String LOWER_CASE_N = "n";
+
+	/**
+	 * 共用文字-字串-小寫-o
+	 */
+	public static final String LOWER_CASE_O = "o";
+
+	/**
+	 * 共用文字-字串-小寫-p
+	 */
+	public static final String LOWER_CASE_P = "p";
+
+	/**
+	 * 共用文字-字串-小寫-q
+	 */
+	public static final String LOWER_CASE_Q = "q";
+
+	/**
+	 * 共用文字-字串-小寫-r
+	 */
+	public static final String LOWER_CASE_R = "r";
+
+	/**
+	 * 共用文字-字串-小寫-s
+	 */
+	public static final String LOWER_CASE_S = "s";
+
+	/**
+	 * 共用文字-字串-小寫-t
+	 */
+	public static final String LOWER_CASE_T = "t";
+
+	/**
+	 * 共用文字-字串-小寫-u
+	 */
+	public static final String LOWER_CASE_U = "u";
+
+	/**
+	 * 共用文字-字串-小寫-v
+	 */
+	public static final String LOWER_CASE_V = "v";
+
+	/**
+	 * 共用文字-字串-小寫-w
+	 */
+	public static final String LOWER_CASE_W = "w";
+
+	/**
+	 * 共用文字-字串-小寫-x
+	 */
+	public static final String LOWER_CASE_X = "x";
+
+	/**
+	 * 共用文字-字串-小寫-y
+	 */
+	public static final String LOWER_CASE_Y = "y";
+
+	/**
+	 * 共用文字-字串-小寫-z
+	 */
+	public static final String LOWER_CASE_Z = "z";
 	
 	/** ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑	共用文字   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 }

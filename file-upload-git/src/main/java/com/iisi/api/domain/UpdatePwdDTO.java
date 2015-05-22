@@ -2,6 +2,8 @@ package com.iisi.api.domain;
 
 import java.io.Serializable;
 
+import com.iisi.api.model.User;
+
 public class UpdatePwdDTO implements Serializable {
 	/**
 	 * 
@@ -17,6 +19,8 @@ public class UpdatePwdDTO implements Serializable {
 	private String confirmPassWord;
 	
 	private String officeId;
+	
+	private User user;
 
 	public String getUserId() {
 		return userId;
@@ -56,5 +60,14 @@ public class UpdatePwdDTO implements Serializable {
 
 	public void setOfficeId(String officeId) {
 		this.officeId = officeId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}	
+	
 }

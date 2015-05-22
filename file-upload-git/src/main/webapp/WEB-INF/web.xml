@@ -140,5 +140,15 @@
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>  
 		<servlet-name>Faces Servlet</servlet-name>	
  	</filter-mapping>
-  
+ 	
+ 	<!-- 執行Session Filter，判斷是否有Session資料 
+ 	<filter>
+ 		<filter-name>SessionFilter</filter-name>
+ 		<filter-class>com.iisi.web.filter.SessionFilter</filter-class>
+ 	</filter>
+ 	<filter-mapping>
+ 		<filter-name>SessionFilter</filter-name>
+ 		<url-pattern>*.xhtml</url-pattern>
+ 	</filter-mapping>
+   -->
 </web-app>

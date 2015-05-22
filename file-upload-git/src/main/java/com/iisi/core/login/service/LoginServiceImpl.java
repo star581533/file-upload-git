@@ -34,7 +34,13 @@ public class LoginServiceImpl implements LoginService {
 		if(users.size() == 0){
 			dto.setCheckLogin(false);
 		}else{
-			dto.setUser(users.get(0));
+			User user = new User();
+			user.setOfficeId(users.get(0).getOfficeId());
+			user.setRoleId(users.get(0).getRoleId());
+			user.setState(users.get(0).getState());
+			user.setUserId(users.get(0).getUserId());
+			user.setUserName(users.get(0).getUserName());
+			dto.setUser(user);
 			dto.setCheckLogin(true);
 		}
 	}

@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class DateUtils {
 	
+	private static int adYyy;
+	private static int mm;
+	private static int dd;
+	private static int rocYyy;
+	
+	
 	public static boolean startDateAfterEndDate(String startDate, String endDate){
 		boolean rtnBool = false;
 		final Date start = null;
@@ -18,18 +24,22 @@ public class DateUtils {
 		return rtnBool;
 	}
 	
+	/**
+	 * 西元日期轉民國日期
+	 * @param date
+	 * @return
+	 */
 	public static String adToRocDate(Date date){
 		String rtnRocDate = "";
 		
-		if(null != date){
-			
+		if(null != date){			
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 			
-			int adYyy = cal.get(Calendar.YEAR);
-			int mm = cal.get(Calendar.MONTH) + 1;
-			int dd = cal.get(Calendar.DATE);			
-			int rocYyy = adYyy - 1911;
+			adYyy = cal.get(Calendar.YEAR);
+			mm = cal.get(Calendar.MONTH) + 1;
+			dd = cal.get(Calendar.DATE);			
+			rocYyy = adYyy - 1911;
 			
 			String rocYyyStr = checkDateLength(String.valueOf(rocYyy), 3);
 			String rocMmStr = checkDateLength(String.valueOf(mm), 2);
@@ -43,6 +53,11 @@ public class DateUtils {
 		}
 	}
 	
+	/**
+	 * 民國日期轉西元日期
+	 * @param date
+	 * @return
+	 */
 	public static String rocToAdDate(String date){
 		String rtnAdDate = "";
 		
@@ -61,6 +76,12 @@ public class DateUtils {
 		return rtnAdDate;
 	}
 	
+	/**
+	 * 判斷日期長度是否要加0
+	 * @param date
+	 * @param len
+	 * @return
+	 */
 	private static String checkDateLength(String date, int len){
 		String rtnStr = ""; 		
 		switch(len){
@@ -82,8 +103,7 @@ public class DateUtils {
 				break;
 			default:
 				break;
-		}
-		
+		}		
 		return rtnStr;
 	}
 	
@@ -93,6 +113,7 @@ public class DateUtils {
 	 */
 	public static String getNowTime(){
 		String time = "";
+		//時間格式
 		SimpleDateFormat timeFormat = new SimpleDateFormat("hhmmss");
 		time = timeFormat.format(new Date());
 		return time;
@@ -104,5 +125,17 @@ public class DateUtils {
 	 */
 	public static String getNowDate(){
 		return adToRocDate(new Date());
+	}
+	
+	/**
+	 * 取得現在民國年
+	 * @return
+	 */
+	public static String getNowYear(){
+		Calendar cal = Calendar.getInstance();
+		adYyy = cal.get(Calendar.YEAR);
+		rocYyy = adYyy - 1911;		
+		String rocYyyStr = checkDateLength(String.valueOf(rocYyy), 3);
+		return rocYyyStr;
 	}
 }
