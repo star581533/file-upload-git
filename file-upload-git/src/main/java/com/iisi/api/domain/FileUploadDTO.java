@@ -1,6 +1,7 @@
 package com.iisi.api.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.primefaces.model.UploadedFile;
 
@@ -18,7 +19,7 @@ public class FileUploadDTO implements Serializable  {
 	
 	private String secret;
 	
-	private String disPatchDate;
+	private Date disPatchDate;
 		
 	private String classNum;
 	
@@ -32,7 +33,7 @@ public class FileUploadDTO implements Serializable  {
 
 	private User user;
 	
-	private FileData fileData;
+	private String filePath;
 	
 	public String getType() {
 		return type;
@@ -50,11 +51,11 @@ public class FileUploadDTO implements Serializable  {
 		this.secret = secret;
 	}
 
-	public String getDisPatchDate() {
+	public Date getDisPatchDate() {
 		return disPatchDate;
 	}
 
-	public void setDisPatchDate(String disPatchDate) {
+	public void setDisPatchDate(Date disPatchDate) {
 		this.disPatchDate = disPatchDate;
 	}
 
@@ -106,11 +107,12 @@ public class FileUploadDTO implements Serializable  {
 		this.user = user;
 	}
 
-	public FileData getFileData() {
-		return fileData;
+	public String getFilePath() {
+		return filePath;
 	}
 
-	public void setFileData(FileData fileData) {
-		this.fileData = fileData;
-	}	
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 }

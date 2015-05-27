@@ -7,10 +7,11 @@
         <title>Journaldev Tutorial</title>
     </h:head>
     <h:body>
-        <h:form id="testForm" enctype="multipart/form-data">
+        <h:form id="testForm"  enctype="multipart/form-data">
                 <p:fileUpload value="#{fileUploadTest.uploadedFile}" mode="simple" />
                 <p:separator/>
-                <p:commandButton value="Submit" action="#{fileUploadTest.submit}" ajax="false" />
+                <p:commandButton value="Submit" action="#{fileUploadTest.submit}" ajax="false"/>
+                <p:commandButton value="Dummy Action" action="#{fileUploadTest.dummyAction}" ajax="false"/>
         </h:form>
     </h:body>
 </html>

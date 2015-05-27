@@ -75,7 +75,7 @@
 				</prop>
 				<!-- 要印出Hibernate中SQL的條件要加上log4j -->
 				<!-- 顯示 SQL 語法 -->
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
 				<!-- 顯示 SQL 語法格式化 -->
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- 加入註釋至產生出的 SQL 語法 -->	

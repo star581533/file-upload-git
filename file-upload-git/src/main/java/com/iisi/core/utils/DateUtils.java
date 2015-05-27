@@ -108,13 +108,30 @@ public class DateUtils {
 	}
 	
 	/**
-	 * 取得現在時間
+	 * 取得現在時間(時:分：秒)
 	 * @return String
 	 */
 	public static String getNowTime(){
+		return getNowTime("HHmmss");
+	}
+	
+	/**
+	 * 取得現在時間(時：分：秒：微秒)
+	 * @return String
+	 */
+	public static String getNowTimeAndMicroSec(){
+		return getNowTime("HHmmssSSS");
+	}
+	
+	/**
+	 * 取得所填入之日期格式
+	 * @param format String
+	 * @return String
+	 */
+	private static String getNowTime(String format){
 		String time = "";
 		//時間格式
-		SimpleDateFormat timeFormat = new SimpleDateFormat("hhmmss");
+		SimpleDateFormat timeFormat = new SimpleDateFormat(format);
 		time = timeFormat.format(new Date());
 		return time;
 	}

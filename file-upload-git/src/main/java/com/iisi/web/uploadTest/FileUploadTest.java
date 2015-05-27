@@ -11,6 +11,7 @@ package com.iisi.web.uploadTest;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.UUID;
@@ -29,7 +30,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.stereotype.Controller;
  
-@Controller
+@ManagedBean
 @SessionScoped
 public class FileUploadTest {
 	
@@ -48,6 +49,12 @@ public class FileUploadTest {
 	public void setUploadedFile(UploadedFile uploadedFile) {
 		this.uploadedFile = uploadedFile;
 	}
+	
+	public String dummyAction(){
+		System.out.println("Upload file name is :" + uploadedFile.getFileName() + ", Upload file size is:" + uploadedFile.getSize());
+		return "";
+	}
+
 	
 	public void handleFileUpload(FileUploadEvent event){		
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -99,7 +106,7 @@ public class FileUploadTest {
 		
 //		File filesDir = new File(context.getExternalContext().getRealPath("/") + "temp/");
 //		File filesDir = new File(directory + File.separator + "temp/");
-		File filesDir = new File(path + File.separator + "temp/");
+		File filesDir = new File(path + File.separator + "temp" + File.separator);
 		System.out.println("filesDir.getPath() = " + filesDir.getPath());
 		
 
@@ -118,10 +125,28 @@ public class FileUploadTest {
 		String serverName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf('.'));
 		
 		try{
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(filesDir, serverName));
+			byte[] buffer = new byte[1024];
+			
+			int bulk;
+			InputStream inputStream = uploadedFile.getInputstream();
+			while(true){
+				bulk = inputStream.read(buffer);
+				if(bulk < 0){
+					break;
+				}
+				
+				fileOutputStream.write(buffer, 0, bulk);
+				fileOutputStream.flush();
+			}
+			
+			fileOutputStream.close();
+			inputStream.close();
+			
 			//將資料寫入指定目錄中
-			OutputStream outputStream = new FileOutputStream(new File(filesDir, serverName));
-			outputStream.write(uploadedFile.getContents());	
-			outputStream.close();
+//			OutputStream outputStream = new FileOutputStream(new File(filesDir, serverName));
+//			outputStream.write(uploadedFile.getContents());	
+//			outputStream.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

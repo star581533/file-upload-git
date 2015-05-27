@@ -12,7 +12,7 @@
 		<h:head>
 			<title>檔案上傳</title>
 		</h:head>	
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<p:growl id="growl" showDetail="true" sticky="true" />
 			<p:panel id="fileUpload" header="檔案上傳">			
 				<table>
@@ -95,7 +95,7 @@
 					</tr>
 					<tr>
 						<td>
-							<p:commandButton value="確定" actionListener="#{fileUploadController.uploadData}" update="growl" />
+	   						<p:commandButton value="確定" action="#{fileUploadController.uploadData}" ajax="false" /> 
 	   						<p:commandButton value="重設" ajax="false"/>
 						</td>
 					</tr>
