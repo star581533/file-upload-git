@@ -19,11 +19,11 @@ public class FileUploadServiceImpl implements FileUploadService{
 	public void doSave(FileUploadDTO dto) {
 		FileData fileData = new FileData();
 		fileData.setClassNum(dto.getClassNum());
-		fileData.setDisPatchDate(dto.getDisPatchDate().toString());
+		fileData.setDisPatchDate(DateUtils.adToRocDate(dto.getDisPatchDate()));
 		fileData.setDisPatchNum(dto.getDisPatchNum());
 		fileData.setFileName(dto.getUploadFile().getFileName());
 		fileData.setGovernment(dto.getGovernment());
-		fileData.setImageId(DateUtils.getNowTimeAndMicroSec());
+		fileData.setImageId(dto.getImageId());
 		fileData.setList(dto.getFilePath());
 		fileData.setOfficeId(dto.getUser().getOfficeId());
 		fileData.setRoleId(dto.getUser().getRoleId());

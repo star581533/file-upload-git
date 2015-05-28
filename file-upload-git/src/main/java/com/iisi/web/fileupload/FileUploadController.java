@@ -59,11 +59,7 @@ public class FileUploadController implements Serializable {
 		dto = new FileUploadDTO();		
 		dto.setUser(Checker.getUser());		
 	}
-	
-	public void test(){
-		System.out.println("dddddddd");
-	}
-	
+		
 	public void uploadData(){
 		System.out.println("uploadData");
 		//驗證
@@ -71,7 +67,7 @@ public class FileUploadController implements Serializable {
 //		//傳檔
 		this.doSubmit();
 //		//寫值到DB
-//		service.doSave(dto);
+		service.doSave(dto);
 	}
 	
 	private void verifyData(){
@@ -125,10 +121,12 @@ public class FileUploadController implements Serializable {
 		String path = externalContext.getRealPath("/upload");
 		System.out.println("path = " + path);
 		
+		dto.setUploadFile(this.uploadedFile);
+		
 		//建立會使用到目錄
 		List<String> dirPaths = new ArrayList<String>();
-		dirPaths.add(path);
-		dirPaths.add(directory);
+//		dirPaths.add(path);
+//		dirPaths.add(directory);
 		dirPaths.add(DateUtils.getNowYear());
 		dirPaths.add(dto.getUser().getOfficeId());
 		dirPaths.add(dto.getUser().getUserId());
@@ -137,9 +135,10 @@ public class FileUploadController implements Serializable {
 		
 		//取得檔案名稱
 		String fileName = uploadedFile.getFileName();
-		//亂數檔名
+		//以亂數改檔名
 //		String serverName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
-		String serverName = DateUtils.getNowDate()+DateUtils.getNowTimeAndMicroSec() + fileName.substring(fileName.lastIndexOf("."));
+		dto.setImageId(DateUtils.getNowDate()+DateUtils.getNowTimeAndMicroSec());
+		String serverName = dto.getImageId() + fileName.substring(fileName.lastIndexOf("."));
 		
 		System.out.println("serverName = " + serverName);
 		
