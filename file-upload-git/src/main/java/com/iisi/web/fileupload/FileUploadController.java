@@ -125,13 +125,15 @@ public class FileUploadController implements Serializable {
 		
 		//建立會使用到目錄
 		List<String> dirPaths = new ArrayList<String>();
-//		dirPaths.add(path);
-//		dirPaths.add(directory);
+		dirPaths.add(path);
+		dirPaths.add(directory);
 		dirPaths.add(DateUtils.getNowYear());
 		dirPaths.add(dto.getUser().getOfficeId());
 		dirPaths.add(dto.getUser().getUserId());
 		
 		this.genDirPath(dirPaths);
+		
+		dto.setFilePath(DateUtils.getNowYear() + File.separator + dto.getUser().getOfficeId() + File.separator + dto.getUser().getUserId());
 		
 		//取得檔案名稱
 		String fileName = uploadedFile.getFileName();
@@ -141,9 +143,10 @@ public class FileUploadController implements Serializable {
 		String serverName = dto.getImageId() + fileName.substring(fileName.lastIndexOf("."));
 		
 		System.out.println("serverName = " + serverName);
+		System.out.println("dto.getFilePath() = " + dto.getFilePath());
 		
 		try{
-			FileOutputStream fileOutputStream = new FileOutputStream(new File(dto.getFilePath(), serverName));
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(dto.getFullPath(), serverName));
 			byte[] buffer = new byte[1024];
 			
 			int bulk;
@@ -174,7 +177,8 @@ public class FileUploadController implements Serializable {
 			dirNames.append(dirName).append(File.separator);
 			this.genDirectory(dirNames.toString());
 		}
-		dto.setFilePath(dirNames.toString());
+		dto.setFullPath(dirNames.toString());
+		System.out.println("dto.getFullPath() = " + dto.getFullPath());
 	}	
 	
 	/**

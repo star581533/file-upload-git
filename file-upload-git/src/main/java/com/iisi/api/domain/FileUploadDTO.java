@@ -37,6 +37,8 @@ public class FileUploadDTO implements Serializable  {
 	
 	private String imageId;
 	
+	private String fullPath;
+	
 	public String getType() {
 		return type;
 	}
@@ -124,4 +126,13 @@ public class FileUploadDTO implements Serializable  {
 	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
+
+	public String getFullPath() {
+		return fullPath;
+	}
+
+	public void setFullPath(String fullPath) {
+		this.fullPath = fullPath;
+	}
+	
 }

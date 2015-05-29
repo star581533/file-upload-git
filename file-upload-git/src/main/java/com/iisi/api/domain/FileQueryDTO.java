@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.iisi.api.model.FileData;
+import com.iisi.api.model.User;
 
 public class FileQueryDTO implements Serializable {
 	
@@ -30,6 +31,8 @@ public class FileQueryDTO implements Serializable {
 	private String government;
 	
 	private List<FileData> files;	
+	
+	private User user;
 	
 	public String getType() {
 		return type;
@@ -101,7 +104,13 @@ public class FileQueryDTO implements Serializable {
 
 	public void setFiles(List<FileData> files) {
 		this.files = files;
-	} 
+	}
 
-	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	} 
 }
