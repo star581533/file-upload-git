@@ -1,5 +1,6 @@
 package com.iisi.core.fileQuery.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,12 @@ import com.iisi.core.utils.DateUtils;
 
 @Component
 @Service("fileQueryService")
-public class FileQueryServiceImpl implements FileQueryService {
+public class FileQueryServiceImpl implements FileQueryService, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private DBFactory dbFactory;
 	

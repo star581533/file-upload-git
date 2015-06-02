@@ -25,6 +25,7 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileQuery.FileQueryService;
+import com.iisi.api.model.FileData;
 import com.iisi.web.check.Checker;
 
 @ManagedBean
@@ -60,14 +61,24 @@ public class FileQueryController implements Serializable {
 		}
 	}
 	
-	public void downloadFile(){
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		String directory = externalContext.getInitParameter("uploadDirectory");
-		String filePath = directory + dto.getFiles().get(0).getList() + ".jpg";
-		System.out.println("filePath = " + filePath);
-		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
-		file = new DefaultStreamedContent(stream, "image/jpg", dto.getFiles().get(0).getFileName());
-//		InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/demo/images/optimus.jpg");
+//	public void downloadFile(){
+//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//		String directory = externalContext.getInitParameter("uploadDirectory");
+//		String filePath = directory + dto.getFiles().get(0).getList() + ".jpg";
+//		System.out.println("filePath = " + filePath);
+//		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
+//		file = new DefaultStreamedContent(stream, "image/jpg", dto.getFiles().get(0).getFileName());
+////		InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/demo/images/optimus.jpg");
+//	}
+	
+	public void downloadFile(FileData data){
+		System.out.println("data = " + data);
+//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//		String directory = externalContext.getInitParameter("uploadDirectory");
+//		String filePath = directory + dto.getFiles().get(0).getList() + ".jpg";
+//		System.out.println("filePath = " + filePath);
+//		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
+//		file = new DefaultStreamedContent(stream, "image/jpg", dto.getFiles().get(0).getFileName());
 	}
 	
 	private void verifyData(){

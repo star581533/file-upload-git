@@ -129,13 +129,9 @@
 							<h:outputText value="#{file.secret}" />
 						</p:column>
 						<p:column headerText="">
-							<p:remoteCommand 
-								name="downloadFile"
-								actionListener="#{fileQueryController.downloadFile}"
-							/>
-							<p:commandButton value="Download" ajax="false" onclick="downloadFile();PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-								<p:fileDownload value="#{fileQueryController.file}" />
-							</p:commandButton>
+							<p:commandButton value="Download" 
+								ajax="false" 
+								actionListener="#{fileQueryController.downloadFile(file)}" icon="ui-icon-arrowthick-1-s" />
 						</p:column>
 					</p:dataTable>				
 				</p:fieldset>
