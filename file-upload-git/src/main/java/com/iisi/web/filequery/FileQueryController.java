@@ -1,5 +1,6 @@
 package com.iisi.web.filequery;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 
@@ -73,12 +74,26 @@ public class FileQueryController implements Serializable {
 	
 	public void downloadFile(FileData data){
 		System.out.println("data = " + data);
-//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 //		String directory = externalContext.getInitParameter("uploadDirectory");
-//		String filePath = directory + dto.getFiles().get(0).getList() + ".jpg";
-//		System.out.println("filePath = " + filePath);
-//		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
-//		file = new DefaultStreamedContent(stream, "image/jpg", dto.getFiles().get(0).getFileName());
+		String path = externalContext.getRealPath("/upload");
+		System.out.println("path = " + path);
+		String fileName = data.getImageId() + ".jpg";
+//		String filePath = directory + File.separator + data.getList() + File.separator+ fileName;
+		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+		System.out.println("filePath = " + filePath);
+		
+		File jpgFile = new File(filePath);
+		System.out.println("file exists = " + jpgFile.exists() + ", file size = " + jpgFile.length() + ",file name = " + jpgFile.getName());
+		
+		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
+		
+		System.out.println("data.getfileName = " +  data.getFileName());
+		file = new DefaultStreamedContent(stream, "image/jpg", fileName);
+		System.out.println(file.getStream());
+//		DefaultStreamedContent streamFile = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+//		
+//		this.setFile(streamFile);
 	}
 	
 	private void verifyData(){
