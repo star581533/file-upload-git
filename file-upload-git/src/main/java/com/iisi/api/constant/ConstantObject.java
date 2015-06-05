@@ -153,6 +153,11 @@ public interface ConstantObject {
 	 */
 	public static final String ERROR_MSG_USER_ERROR = "新增使用者資料失敗";
 	
+	/**
+	 * 錯誤訊息-檔案不存在
+	 */
+	public static final String ERROR_MSG_FILE_NOT_EXIST = "檔案不存在";
+	
 	
 	/** ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑	錯誤訊息   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 	

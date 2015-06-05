@@ -129,7 +129,7 @@
   	
   	<context-param>
 	  	<param-name>uploadDirectory</param-name>
-  		<param-value>../upload</param-value>
+  		<param-value>upload</param-value>
   	</context-param>
   	
   	<session-config>

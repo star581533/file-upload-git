@@ -118,7 +118,7 @@ public class FileUploadController implements Serializable {
 		String directory = externalContext.getInitParameter("uploadDirectory");
 		System.out.println("uploadDirectory = " + directory);
 		
-		String path = externalContext.getRealPath("/upload");
+		String path = externalContext.getRealPath("/");
 		System.out.println("path = " + path);
 		
 		dto.setUploadFile(this.uploadedFile);
@@ -173,8 +173,18 @@ public class FileUploadController implements Serializable {
 	 */
 	private void genDirPath(List<String> dirs){
 		StringBuilder dirNames = new StringBuilder();
-		for(String dirName : dirs){
-			dirNames.append(dirName).append(File.separator);
+//		for(String dirName : dirs){
+//			dirNames.append(dirName).append(File.separator);
+//			this.genDirectory(dirNames.toString());
+//		}
+		for(int num=0; num < dirs.size();num++){
+			String dirName = dirs.get(num);
+			if(num == 0){
+				dirNames.append(dirName);
+			}else{
+				dirNames.append(dirName).append(File.separator);
+			}
+			
 			this.genDirectory(dirNames.toString());
 		}
 		dto.setFullPath(dirNames.toString());

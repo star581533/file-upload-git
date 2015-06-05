@@ -1,6 +1,8 @@
 package com.iisi.web.filequery;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
 
@@ -73,27 +75,29 @@ public class FileQueryController implements Serializable {
 //	}
 	
 	public void downloadFile(FileData data){
-		System.out.println("data = " + data);
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//		String directory = externalContext.getInitParameter("uploadDirectory");
 		String path = externalContext.getRealPath("/upload");
-		System.out.println("path = " + path);
 		String fileName = data.getImageId() + ".jpg";
-//		String filePath = directory + File.separator + data.getList() + File.separator+ fileName;
 		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
 		System.out.println("filePath = " + filePath);
-		
-		File jpgFile = new File(filePath);
-		System.out.println("file exists = " + jpgFile.exists() + ", file size = " + jpgFile.length() + ",file name = " + jpgFile.getName());
-		
-		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
-		
-		System.out.println("data.getfileName = " +  data.getFileName());
-		file = new DefaultStreamedContent(stream, "image/jpg", fileName);
-		System.out.println(file.getStream());
-//		DefaultStreamedContent streamFile = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
-//		
-//		this.setFile(streamFile);
+				
+	    File result = new File(filePath);
+	    
+	    System.out.println("result.exists() = " + result.exists());
+	    
+	    if(result.exists()){
+		    InputStream stream;
+			try {
+				stream = new FileInputStream(result.getAbsolutePath());
+				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}	
+	    }else{
+	    	throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+	    }
+	    
+	
 	}
 	
 	private void verifyData(){

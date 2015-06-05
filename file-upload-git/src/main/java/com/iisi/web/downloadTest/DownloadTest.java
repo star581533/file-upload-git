@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -16,8 +17,8 @@ import org.primefaces.model.StreamedContent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-@Controller
-@Scope("reqeust")
+@ManagedBean
+@ViewScoped
 public class DownloadTest {
 
 	private StreamedContent file;
@@ -28,22 +29,22 @@ public class DownloadTest {
 	}
 	
 	
-//	public DownloadTest(){
-//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//		String directory = externalContext.getInitParameter("uploadDirectory")+ File.separator + "temp/";
-//		
-////		InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/demo/images/optimus.jpg");
-////		String path = externalContext.getRealPath("/upload");
-//		try {
-//			InputStream stream = new FileInputStream(new File(directory, "test.jpg"));
-////			InputStream stream = new FileInputStream(new File(path, "test.jpg"));
-//			file = new DefaultStreamedContent(stream, "image/jpg", "test.jpg");
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
+	public DownloadTest(){
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		String directory = externalContext.getInitParameter("uploadDirectory")+ File.separator + "temp/";
+		
+//		InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/demo/images/optimus.jpg");
+//		String path = externalContext.getRealPath("/upload");
+		try {
+			InputStream stream = new FileInputStream(new File(directory, "test.jpg"));
+//			InputStream stream = new FileInputStream(new File(path, "test.jpg"));
+			file = new DefaultStreamedContent(stream, "image/jpg", "test.jpg");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public void downloadFile(){
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -53,10 +54,13 @@ public class DownloadTest {
 //		String path = externalContext.getRealPath("/upload");
 //		try {
 //			String directory = "/resources/download/";
-			InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/download/test.jpg");	
+//			InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/download/test.jpg");
+			InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/upload/104/000/aa/1040603144206720.jpg");	
+
 //						InputStream stream = new FileInputStream(new File(directory, "test.jpg"));
 //			InputStream stream = new FileInputStream(new File(path, "test.jpg"));
-			file = new DefaultStreamedContent(stream, "image/jpg", "test.jpg");
+//			file = new DefaultStreamedContent(stream, "image/jpg", "test.jpg");
+			file = new DefaultStreamedContent(stream, "image/jpg", "1040603144206720.jpg");
 //		} catch (FileNotFoundException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
