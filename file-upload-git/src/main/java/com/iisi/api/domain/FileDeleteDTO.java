@@ -1,9 +1,11 @@
 package com.iisi.api.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.iisi.api.model.FileData;
+import com.iisi.api.model.User;
 
 public class FileDeleteDTO implements Serializable {
 	
@@ -14,11 +16,11 @@ public class FileDeleteDTO implements Serializable {
 
 	private String type;
 	
-	private String sercet;
+	private String secret;
 	
-	private String startDate;
+	private Date startDate;
 	
-	private String endDate;
+	private Date endDate;
 	
 	private String classNum;
 	
@@ -30,6 +32,10 @@ public class FileDeleteDTO implements Serializable {
 	
 	private List<FileData> files;
 	
+	private User user;
+	
+	private FileData file;
+	
 	public String getType() {
 		return type;
 	}
@@ -38,27 +44,27 @@ public class FileDeleteDTO implements Serializable {
 		this.type = type;
 	}
 
-	public String getSercet() {
-		return sercet;
+	public String getSecret() {
+		return secret;
 	}
 
-	public void setSercet(String sercet) {
-		this.sercet = sercet;
+	public void setSecret(String secret) {
+		this.secret = secret;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -100,5 +106,21 @@ public class FileDeleteDTO implements Serializable {
 
 	public void setFiles(List<FileData> files) {
 		this.files = files;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public FileData getFile() {
+		return file;
+	}
+
+	public void setFile(FileData file) {
+		this.file = file;
 	}
 }

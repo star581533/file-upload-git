@@ -34,7 +34,7 @@
 								<h:outputText value="密件：" />
 							</td>
 							<td>
-								<p:selectOneRadio id="sercet" value="#{fileDeleteController.dto.sercet}"> 
+								<p:selectOneRadio id="sercet" value="#{fileDeleteController.dto.secret}"> 
 									<f:selectItem itemLabel="是" itemValue="Y" />
 									<f:selectItem itemLabel="否" itemValue="N" />
 								</p:selectOneRadio>
@@ -90,8 +90,7 @@
 						</tr>
 					</table>
 				</p:fieldset>			
-				<p:fieldset legend="" id="resultList" rendered="#{fileDeleteController.dto.files != null}">
-					<table width="100%">
+				<p:fieldset legend="檔案資料" id="resultList" rendered="#{fileDeleteController.dto.files != null}">
 					<p:dataTable var="file" value="#{fileDeleteController.dto.files}" rows="10"
 						paginator="true"
 						rowsPerPageTemplate="5,10,15">
@@ -120,13 +119,22 @@
 							<h:outputText value="#{file.secret}" />
 						</p:column>
 						<p:column headerText="">
-							<h:outputText value="下載" />
+							<p:commandButton value="下載" 
+								ajax="false" 
+								actionListener="#{fileDeleteController.downloadFile(file)}" 
+								icon="ui-icon-arrowthick-1-s">
+								<p:fileDownload value="#{fileDeleteController.file}" />
+							</p:commandButton>
 						</p:column>
 						<p:column headerText="">
-							<h:outputText value="刪除" />
+							<p:commandButton value="刪除" 
+								update="resultList"
+								ajax="false" 
+								actionListener="#{fileDeleteController.deleteFile(file)}"
+								icon="ui-icon-close"
+								/>
 						</p:column>
 					</p:dataTable>
-				</table>
 				</p:fieldset>			
 			</p:panel>
 		</h:form>

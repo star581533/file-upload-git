@@ -52,6 +52,7 @@ public class DBFactoryImpl implements DBFactory{
 //		getHibernateTemplate().update(t);
 	}
 	
+	@Transactional
 	public <T> void delete(T t){
 		sessionFactory.getCurrentSession().delete(t);
 //		getHibernateTemplate().delete(t);
