@@ -19,7 +19,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 	private DBFactory dbFactory;
 	
 	@Override
-	public List<User> queryUser(UserDTO dto){
+	public List<User> queryOneUser(UserDTO dto){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * from user where userid = ? and officeid = ?");
 
@@ -35,7 +35,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 
 	@Override
 	public int countSingleUser(UserDTO dto) {
-		int count = this.queryUser(dto).size();
+		int count = this.queryOneUser(dto).size();
 		return count;
 	}
 

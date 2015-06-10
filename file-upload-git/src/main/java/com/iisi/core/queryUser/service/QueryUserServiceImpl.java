@@ -22,6 +22,7 @@ public class QueryUserServiceImpl implements QueryUserService, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	private transient UserDataComponent userDataComponent;
 	

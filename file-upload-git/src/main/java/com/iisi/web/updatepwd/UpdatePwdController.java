@@ -90,11 +90,6 @@ public class UpdatePwdController implements Serializable {
 	private void verifyData(){
 		try{
 			FacesContext context = FacesContext.getCurrentInstance();
-			
-			if(ConstantMethod.verifyColumn(dto.getUserId())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
-			}
 
 			if(ConstantMethod.verifyColumn(dto.getOldPassWord())){
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD));
@@ -122,11 +117,11 @@ public class UpdatePwdController implements Serializable {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_PWD));
 				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_PWD);
 			}
-			
-			if(service.checkUser(dto) == 0){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.ERROR_MSG_USER_NOT_EXIST));
-				throw new FileSysException(ConstantObject.ERROR_MSG_USER_NOT_EXIST);
-			}
+//			//
+//			if(service.checkUser(dto) == 0){
+//				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.ERROR_MSG_USER_NOT_EXIST));
+//				throw new FileSysException(ConstantObject.ERROR_MSG_USER_NOT_EXIST);
+//			}
 		}catch(FileSysException e){
 			System.out.println(e.getMessage());
 		}	

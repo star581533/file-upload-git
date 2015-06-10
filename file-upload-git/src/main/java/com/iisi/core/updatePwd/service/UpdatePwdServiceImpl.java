@@ -33,7 +33,7 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 		UserDTO userDto = new UserDTO();
 		userDto.setUserId(dto.getUserId());
 		userDto.setOfficeId(dto.getOfficeId());
-		List<User> users = userDataComponent.queryUser(userDto);
+		List<User> users = userDataComponent.queryOneUser(userDto);
 		
 		try{
 			if(users.size() != 0){
@@ -69,7 +69,7 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 		userDto.setUserId(dto.getUserId());
 		userDto.setOfficeId(dto.getOfficeId());
 		
-		List<User> users = userDataComponent.queryUser(userDto);
+		List<User> users = userDataComponent.queryOneUser(userDto);
 		User user = users.get(0);
 		
 		return ConstantMethod.compareTwoColumn(user.getUserPwd(), dto.getOldPassWord());

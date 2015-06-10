@@ -9,6 +9,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.execption.FileSysException;
@@ -23,6 +26,8 @@ public class OperationLogQueryController implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(OperationLogQueryController.class);
 
 	private OperationLogQueryDTO dto;
 	
@@ -35,13 +40,16 @@ public class OperationLogQueryController implements Serializable{
 	}
 	
 	public void doQuery(){
+		LOG.debug("************************* OperationLogQueryController doQuery start *************************");
+		
 		this.verifyData();
 		dto.setOperationLogs(operationLogService.getOperationLogList(dto));
+		
+		LOG.debug("************************* OperationLogQueryController doQuery end *************************");
 	}
 	
 	private void verifyData(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		
+		FacesContext context = FacesContext.getCurrentInstance();		
 		//起始日
 		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));

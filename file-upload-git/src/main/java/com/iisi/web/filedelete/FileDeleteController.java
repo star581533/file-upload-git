@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -18,6 +19,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileDeleteDTO;
 import com.iisi.api.execption.FileSysException;
@@ -106,6 +108,22 @@ public class FileDeleteController implements Serializable {
 	}
 	
 	private void verifyData(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		//類型
+		if(ConstantMethod.verifyColumn(dto.getType())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+		}
+		//日期區間-起
+		if(ConstantMethod.verifyColumn(dto.getStartDate().toString())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
+		}
+		//日期區間-迄
+		if(ConstantMethod.verifyColumn(dto.getEndDate().toString())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
+		}
 		
 	}
 

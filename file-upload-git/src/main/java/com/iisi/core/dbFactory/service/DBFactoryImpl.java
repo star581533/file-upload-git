@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import javax.inject.Inject;
 
 import org.hibernate.Query;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
 import com.iisi.api.execption.FileSysException;
 
 @Component
@@ -86,5 +88,11 @@ public class DBFactoryImpl implements DBFactory{
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public DBSMain getDB() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
