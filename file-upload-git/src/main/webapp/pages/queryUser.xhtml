@@ -67,9 +67,8 @@
 							<h:outputText value="#{user.officeId}" />
 						</p:column>
 						<p:column headerText="使用者帳號">
-							<p:commandLink id="userIdLink" actionListener="#{queryUserController.userDataLink}" action="#{queryUserController.userForward}">
+							<p:commandLink id="userIdLink" action="#{queryUserController.userForward(user)}">
 								<h:outputText value="#{user.userId}" />
-								<f:attribute name="userId" value="#{user.userId}" />
 							</p:commandLink>
 						</p:column>
 						<p:column headerText="使用者名稱">

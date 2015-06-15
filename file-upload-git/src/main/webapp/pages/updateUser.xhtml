@@ -15,59 +15,70 @@
 			</title>
 		</h:head>		
 		<h:form>
-			<p:panel id="updateUser" header="修改使用者資料">
-				<table>
-					<tr>
-						<td>
-							<h:outputText value="使用者帳號：" />
-						</td>
-						<td>
-							<h:outputText value="#{queryUserController.dto.user.userId}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputText value="使用者姓名：" />
-						</td>
-						<td>
-							<h:inputText value="#{queryUserController.dto.user.userName}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputText value="科別：" />
-						</td>
-						<td>
-							<p:autoComplete id="btn" dropdown="true" value="#{queryUserController.dto.user.roleId}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputText value="在職狀態：" />
-						</td>
-						<td>
-							<p:selectOneRadio id="" value="#{queryUserController.dto.user.state}">
-								<f:selectItem itemLabel="在職" itemValue="Y" />
-								<f:selectItem itemLabel="離職" itemValue="N" />
-								<f:selectItem itemLabel="停用" itemValue="S" />
-							</p:selectOneRadio>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputText value="密碼重設：" />
-						</td>
-						<td>
-							<h:commandButton value="密碼重設" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:commandButton value="確定"/>
-	  						  <h:commandButton value="重設"/>
-						</td>
-					</tr>
-				</table>
+			<p:panel id="userPanel" header="修改使用者資料">
+				<p:fieldset id="updateUser" legend="使用者資料">
+					<table>
+						<tr>
+							<td>
+								<h:outputText value="使用者帳號：" />
+							</td>
+							<td>
+								<h:outputText value="#{updateUserController.dto.user.userId}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="使用者姓名：" />
+							</td>
+							<td>
+								<h:inputText value="#{updateUserController.dto.user.userName}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="科別：" />
+							</td>
+							<td>
+								<p:selectOneMenu id="officeId" value="#{updateUserController.dto.user.officeId}">
+									<f:selectItem itemLabel="系統管理員" itemValue="000" />
+								   	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
+								   	<f:selectItem itemLabel="國籍行政科" itemValue="002" />
+								   	<f:selectItem itemLabel="戶口調查科" itemValue="003" />
+								  	<f:selectItem itemLabel="人口政策科" itemValue="004" />
+								  	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
+								   	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
+								   	<f:selectItem itemLabel="戶政司" itemValue="111" />      
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="在職狀態：" />
+							</td>
+							<td>
+								<p:selectOneRadio id="userState" value="#{updateUserController.dto.user.state}">
+									<f:selectItem itemLabel="在職" itemValue="Y" />
+									<f:selectItem itemLabel="離職" itemValue="N" />
+									<f:selectItem itemLabel="停用" itemValue="S" />
+								</p:selectOneRadio>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputText value="密碼重設：" />
+							</td>
+							<td>
+								<p:commandButton value="密碼重設" action="#{updateUserController.doPwdReset}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:commandButton value="確定" action="#{updateUserController.doUpdate}"/>
+		  						<p:commandButton value="重設" actionListener="#{updateUserController.doReset}" update="updateUser" ajax="false"/>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>
 			</p:panel>
 		</h:form>
 	</ui:define>

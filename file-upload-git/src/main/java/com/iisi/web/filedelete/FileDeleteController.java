@@ -75,7 +75,7 @@ public class FileDeleteController implements Serializable {
 				e.printStackTrace();
 			}	
 	    }else{
-	    	throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+	    	throw new FileSysException(ConstantObject.ERROR_MSG_FILE_NOT_EXIST);
 	    }
 	}
 	
@@ -94,17 +94,19 @@ public class FileDeleteController implements Serializable {
 		
 		if(result.exists()){
 			if(result.delete()){
-				service.doDelete(dto);
+//				service.doDelete(dto);
 				System.out.println("刪除成功");
 			}else{
 				System.out.println("刪除失敗");
 			}				
 		}else{
-			System.out.println("資料不存在");
+			System.out.println("檔案不存在");
 		}		
 		
+		service.doDelete(dto);
+		
 		dto.setFiles(service.doQuery(dto));
-		RequestContext.getCurrentInstance().update("resultList");
+//		RequestContext.getCurrentInstance().update("resultList");
 	}
 	
 	private void verifyData(){

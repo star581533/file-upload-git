@@ -92,7 +92,6 @@ public class DBFactoryImpl implements DBFactory{
 
 	@Override
 	public DBSMain getDB() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
