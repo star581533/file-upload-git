@@ -34,7 +34,6 @@ public class AddUserController implements Serializable {
 	
 	private List<SelectItem> officeList = new ArrayList<SelectItem>();	
 		
-//	@Autowired
 	@ManagedProperty(value="#{addUserService}")
 	private AddUserService addUserService;
 	
@@ -78,8 +77,7 @@ public class AddUserController implements Serializable {
 				throw new FileSysException(ConstantObject.ERROR_MSG_USER_EXIST);
 			}			
 		}catch(FileSysException e){
-//			throw e;
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}	
 	}
 	

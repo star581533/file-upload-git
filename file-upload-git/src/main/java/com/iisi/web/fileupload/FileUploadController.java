@@ -71,42 +71,48 @@ public class FileUploadController implements Serializable {
 	}
 	
 	private void verifyData(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		//類型
-		if(ConstantMethod.verifyColumn(dto.getType())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
-		}
-		//密件
-		if(ConstantMethod.verifyColumn(dto.getSecret())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SECRET));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SECRET);
-		}
-		//日期
-		if(ConstantMethod.verifyColumn(dto.getDisPatchDate().toString())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DATE);
-		}
-		//分類號
-		if(ConstantMethod.verifyColumn(dto.getClassNum())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_CLASSNUM));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_CLASSNUM);
-		}
-		//公文文號
-		if(ConstantMethod.verifyColumn(dto.getDisPatchNum())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DISPATCHNUM);
-		}
-		//主旨
-		if(ConstantMethod.verifyColumn(dto.getSubject())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SUBJECT));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
-		}
-		//檔名
-		if(ConstantMethod.verifyColumn(dto.getUploadFile().getFileName())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_FILE);
-		}		
+		try{
+			FacesContext context = FacesContext.getCurrentInstance();
+			//類型
+			if(ConstantMethod.verifyColumn(dto.getType())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+			}
+			//密件
+			if(ConstantMethod.verifyColumn(dto.getSecret())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SECRET));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SECRET);
+			}
+			//日期
+			if(ConstantMethod.verifyColumn(dto.getDisPatchDate().toString())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DATE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DATE);
+			}
+			//分類號
+			if(ConstantMethod.verifyColumn(dto.getClassNum())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_CLASSNUM));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_CLASSNUM);
+			}
+			//公文文號
+			if(ConstantMethod.verifyColumn(dto.getDisPatchNum())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DISPATCHNUM);
+			}
+			//主旨
+			if(ConstantMethod.verifyColumn(dto.getSubject())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SUBJECT));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
+			}
+			//檔名
+			if(ConstantMethod.verifyColumn(dto.getUploadFile().getFileName())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_FILE);
+			}	
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
 	}
 	
 	public void doSubmit(){

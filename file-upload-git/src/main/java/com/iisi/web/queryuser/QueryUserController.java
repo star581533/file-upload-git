@@ -92,12 +92,18 @@ public class QueryUserController implements Serializable{
 	}
 		
 	private void verifyData(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		
-		//在職狀態
-		if(dto.getState() == null || dto.getState().length() == 0){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_STATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_STATE);
+		try{
+			FacesContext context = FacesContext.getCurrentInstance();
+			
+			//在職狀態
+			if(dto.getState() == null || dto.getState().length() == 0){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_STATE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_STATE);
+			}	
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	

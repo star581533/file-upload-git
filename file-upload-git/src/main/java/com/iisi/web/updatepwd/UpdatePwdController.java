@@ -33,10 +33,6 @@ import com.iisi.web.check.Checker;
 @RequestScoped
 public class UpdatePwdController implements Serializable {
 	
-	private UpdatePwdDTO dto;
-	
-   
-    private transient ExecutantType executant = new ExecutantType();
 	
 	/**
 	 * 
@@ -45,7 +41,9 @@ public class UpdatePwdController implements Serializable {
 	
 	@ManagedProperty(value="#{updatePwdService}")
 	private UpdatePwdService service;
-		
+	
+	private UpdatePwdDTO dto;
+	
 //	@Autowired
 //	@Inject
 //    private transient FileSysUserUtil fileSysUserUtil;
@@ -123,8 +121,10 @@ public class UpdatePwdController implements Serializable {
 //				throw new FileSysException(ConstantObject.ERROR_MSG_USER_NOT_EXIST);
 //			}
 		}catch(FileSysException e){
-			System.out.println(e.getMessage());
-		}	
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public UpdatePwdDTO getDto() {

@@ -31,16 +31,16 @@ import com.iisi.api.model.FileData;
 @ViewScoped
 public class FileDeleteController implements Serializable {
 
-	private FileDeleteDTO dto;
-	
-	@ManagedProperty(value="#{fileDeleteService}")
-	private FileDeleteService service;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	private FileDeleteDTO dto;
+	
+	@ManagedProperty(value="#{fileDeleteService}")
+	private FileDeleteService service;
 	
 	private StreamedContent file;
 	
@@ -110,23 +110,28 @@ public class FileDeleteController implements Serializable {
 	}
 	
 	private void verifyData(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		//類型
-		if(ConstantMethod.verifyColumn(dto.getType())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+		try{
+			FacesContext context = FacesContext.getCurrentInstance();
+			//類型
+			if(ConstantMethod.verifyColumn(dto.getType())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+			}
+			//日期區間-起
+			if(ConstantMethod.verifyColumn(dto.getStartDate().toString())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
+			}
+			//日期區間-迄
+			if(ConstantMethod.verifyColumn(dto.getEndDate().toString())){
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
+				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
+			}	
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		//日期區間-起
-		if(ConstantMethod.verifyColumn(dto.getStartDate().toString())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
-		}
-		//日期區間-迄
-		if(ConstantMethod.verifyColumn(dto.getEndDate().toString())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
-		}
-		
 	}
 
 	public FileDeleteDTO getDto() {

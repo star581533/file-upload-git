@@ -12,9 +12,7 @@
 	<ui:define name="menu" />
 	<ui:define name="content">
 		<h:head>
-			<title>使用者登入</title>
-			
-			
+			<title>使用者登入</title>			
 			<style type="text/css">		
 				.ui-growl {
 				left: 50%;
@@ -24,8 +22,7 @@
 		</h:head>		
 		<h:form id="loginForm">
 			<p:growl id="growl" showDetail="true" sticky="true" />
-			<p:panelGrid id="user" style="margin-top:100px;margin-left:350px">
-			
+			<p:panelGrid id="user" style="margin-top:100px;margin-left:350px">			
 				<f:facet name="header">
 					<p:row>
 						<p:column colspan="2">使用者登入</p:column>
@@ -53,7 +50,7 @@
 			    		<p:commandButton 
 			    			value="登入" 
 			    			action="#{loginController.loginButton}" 
-			    			ajax="false"
+			    			ajax="true"
 			    			update="growl"/>
 						<p:commandButton value="取消" actionListener="#{loginController.cancelButton}" update="user"/>
 			    	</p:column>			    	
