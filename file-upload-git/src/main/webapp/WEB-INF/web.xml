@@ -29,7 +29,7 @@
 	<!-- web中檔案存放位置 -->
 	<context-param>
 	  	<param-name>uploadDirectory</param-name>
-  		<param-value>upload</param-value>
+  		<param-value>/upload</param-value>
   	</context-param>
     <!--
   	<context-param>

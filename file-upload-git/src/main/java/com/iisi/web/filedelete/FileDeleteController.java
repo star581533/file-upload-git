@@ -57,7 +57,11 @@ public class FileDeleteController implements Serializable {
 	
 	public void downloadFile(FileData data){
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		String path = externalContext.getRealPath("/upload");
+		String directory = externalContext.getInitParameter("uploadDirectory");
+		File fileDir = new File(directory);
+		String path = fileDir.getAbsolutePath();
+		
+//		String path = externalContext.getRealPath("/upload");
 		String fileName = data.getImageId() + ".jpg";
 		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
 		System.out.println("filePath = " + filePath);
@@ -83,7 +87,11 @@ public class FileDeleteController implements Serializable {
 		dto.setFile(data);	
 		
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		String path = externalContext.getRealPath("/upload");
+//		String path = externalContext.getRealPath("/upload");
+		String directory = externalContext.getInitParameter("uploadDirectory");
+		File fileDir = new File(directory);
+		String path = fileDir.getAbsolutePath();
+		
 		String fileName = data.getImageId() + ".jpg";
 		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
 		System.out.println("filePath = " + filePath);

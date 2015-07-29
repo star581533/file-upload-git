@@ -27,6 +27,9 @@ import javax.faces.context.FacesContext;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.primefaces.model.UploadedFile;
 
 import com.iisi.api.constant.ConstantMethod;
@@ -56,22 +59,41 @@ public class FileUploadController implements Serializable {
 	
 	@PostConstruct
 	public void init(){
+//		FacesContext facesContext = FacesContext.getCurrentInstance();
+//		ExternalContext externalContext = facesContext.getExternalContext();
+////		HttpServletResponse response = (HttpServletResponse)externalContext.getResponse();
+////		response.setContentType("multipart/form-data");
+////		
+//		
+//		HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
+//		request.setAttribute("enctype", "multipart/form-data");
+//		
+//		System.out.println("1-------------------------request.getContentType() = " + request.getContentType());
+//		
+		
+		
 		dto = new FileUploadDTO();		
 		dto.setUser(Checker.getUser());		
 	}
 		
 	public void uploadData(){
-		System.out.println("uploadData");
-		//驗證
-//		this.verifyData();
-//		//傳檔
-		this.doSubmit();
-//		//寫值到DB
-		service.doSave(dto);
+		try{
+			System.out.println("uploadData");
+			//驗證
+			this.verifyData();
+			//傳檔
+			this.doSubmit();
+			//寫值到DB
+			service.doSave(dto);
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	private void verifyData(){
-		try{
+//		try{
 			FacesContext context = FacesContext.getCurrentInstance();
 			//類型
 			if(ConstantMethod.verifyColumn(dto.getType())){
@@ -104,27 +126,35 @@ public class FileUploadController implements Serializable {
 				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
 			}
 			//檔名
-			if(ConstantMethod.verifyColumn(dto.getUploadFile().getFileName())){
+			if(ConstantMethod.verifyColumn(this.uploadedFile.getFileName())){
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
 				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_FILE);
 			}	
-		}catch(FileSysException e){
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}	
+//		}catch(FileSysException e){
+//			e.printStackTrace();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}	
 	}
 	
-	public void doSubmit(){
+	public void doSubmit(){		
 		System.out.println("dto.getDisPatchDate().toString() = " + DateUtils.adToRocDate(dto.getDisPatchDate()));
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
+		
+
+		
+		
 		//取得web.xml中所設定目錄
 		String directory = externalContext.getInitParameter("uploadDirectory");
 		System.out.println("uploadDirectory = " + directory);
 		
-		String path = externalContext.getRealPath("/");
+		File file = new File(directory);
+		System.out.println("file.getAbsolutePath() = " + file.getAbsolutePath());
+		
+//		String path = externalContext.getRealPath(file.getAbsolutePath());
+		String path = file.getAbsolutePath();
 		System.out.println("path = " + path);
 		
 		dto.setUploadFile(this.uploadedFile);
@@ -132,7 +162,7 @@ public class FileUploadController implements Serializable {
 		//建立會使用到目錄
 		List<String> dirPaths = new ArrayList<String>();
 		dirPaths.add(path);
-		dirPaths.add(directory);
+//		dirPaths.add(directory);
 		dirPaths.add(DateUtils.getNowYear());
 		dirPaths.add(dto.getUser().getOfficeId());
 		dirPaths.add(dto.getUser().getUserId());
@@ -179,20 +209,20 @@ public class FileUploadController implements Serializable {
 	 */
 	private void genDirPath(List<String> dirs){
 		StringBuilder dirNames = new StringBuilder();
-//		for(String dirName : dirs){
-//			dirNames.append(dirName).append(File.separator);
-//			this.genDirectory(dirNames.toString());
-//		}
-		for(int num=0; num < dirs.size();num++){
-			String dirName = dirs.get(num);
-			if(num == 0){
-				dirNames.append(dirName);
-			}else{
-				dirNames.append(dirName).append(File.separator);
-			}
-			
+		for(String dirName : dirs){
+			dirNames.append(dirName).append(File.separator);
 			this.genDirectory(dirNames.toString());
 		}
+//		for(int num=0; num < dirs.size();num++){
+//			String dirName = dirs.get(num);
+//			if(num == 0){
+//				dirNames.append(dirName);
+//			}else{
+//				dirNames.append(dirName).append(File.separator);
+//			}
+//			
+//			this.genDirectory(dirNames.toString());
+//		}
 		dto.setFullPath(dirNames.toString());
 		System.out.println("dto.getFullPath() = " + dto.getFullPath());
 	}	
@@ -207,8 +237,6 @@ public class FileUploadController implements Serializable {
 			dir.mkdir();
 		}
 	}
-	
-
 	
 	public FileUploadDTO getDto() {
 		return dto;

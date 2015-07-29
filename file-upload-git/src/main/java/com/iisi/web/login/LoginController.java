@@ -67,6 +67,7 @@ public class LoginController implements Serializable{
 	 */
 	private void verify() {
 		try{
+			
 			FacesContext context = FacesContext.getCurrentInstance();
 			//檢核使用者帳號
 			if(null == dto.getUserId() || dto.getUserId().length() == 0){

@@ -10,12 +10,12 @@ import javax.persistence.Table;
 public class Office {
 
 	/**
-	 * ³æ¦ì¥N¸¹
+	 * å–®ä½ä»£è™Ÿ
 	 */
 	private String officeId;
 	
 	/**
-	 * ³æ¦ì¦WºÙ
+	 * å–®ä½åç¨±
 	 */
 	private String officeName;
 

@@ -3,6 +3,13 @@
 	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<field name="loginDate" class="java.lang.String"/>
+	<field name="loginTime" class="java.lang.String"/>
+	<field name="officeId" class="java.lang.String"/>
+	<field name="userId" class="java.lang.String"/>
+	<field name="userName" class="java.lang.String"/>
+	<field name="inoutMark" class="java.lang.String"/>
+	<field name="officeName" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -68,26 +75,32 @@
 			<textField>
 				<reportElement x="0" y="0" width="87" height="20"/>
 				<textElement/>
+				<textFieldExpression><![CDATA[$F{loginDate}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="172" y="0" width="87" height="20"/>
 				<textElement/>
+				<textFieldExpression><![CDATA[$F{userId}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="87" y="0" width="85" height="20"/>
 				<textElement/>
+				<textFieldExpression><![CDATA[$F{loginTime}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="259" y="0" width="91" height="20"/>
 				<textElement/>
+				<textFieldExpression><![CDATA[$F{userName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="350" y="0" width="101" height="20"/>
 				<textElement/>
+				<textFieldExpression><![CDATA[$F{officeName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="451" y="0" width="104" height="20"/>
 				<textElement/>
+				<textFieldExpression><![CDATA[$F{inoutMark}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

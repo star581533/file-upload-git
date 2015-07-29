@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletContext;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -56,11 +57,11 @@ public class FileQueryController implements Serializable {
 	public void doQuery(){
 		try{			
 			this.verifyData();
-			dto.setFiles(fileQueryService.getFileList(dto));
+				dto.setFiles(fileQueryService.getFileList(dto));
 		}catch(FileSysException e){
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -76,7 +77,12 @@ public class FileQueryController implements Serializable {
 	
 	public void downloadFile(FileData data){
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		String path = externalContext.getRealPath("/upload");
+		String directory = externalContext.getInitParameter("uploadDirectory");
+		
+		File fileDir = new File(directory);
+		String path = fileDir.getAbsolutePath();
+//		String path = externalContext.getRealPath("/upload");
+		
 		String fileName = data.getImageId() + ".jpg";
 		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
 		System.out.println("filePath = " + filePath);
@@ -100,8 +106,8 @@ public class FileQueryController implements Serializable {
 	
 	}
 	
-	private void verifyData(){
-		try{
+	public void verifyData(){
+//		try{
 			FacesContext context = FacesContext.getCurrentInstance();
 			//類型
 			if(null == dto.getType() || dto.getType().length() == 0){
@@ -118,11 +124,11 @@ public class FileQueryController implements Serializable {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
 				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
 			}
-		}catch(FileSysException e){
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}		
+//		}catch(FileSysException e){
+//			e.printStackTrace();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}		
 	}
 
 	public FileQueryDTO getDto() {
