@@ -89,9 +89,4 @@ public class DBFactoryImpl implements DBFactory{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-	@Override
-	public DBSMain getDB() {
-		return null;
-	}
 }

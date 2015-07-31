@@ -7,5 +7,4 @@ package com.iisi.api.db;
  */
 public interface DBFactory extends BaseFactory{
 
-	public DBSMain getDB();
 }

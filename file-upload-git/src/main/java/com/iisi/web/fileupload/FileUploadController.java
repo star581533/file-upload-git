@@ -38,6 +38,7 @@ import com.iisi.api.domain.FileUploadDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileUpload.FileUploadService;
 import com.iisi.core.utils.DateUtils;
+import com.iisi.core.utils.FileSysUtils;
 import com.iisi.web.check.Checker;
 
 
@@ -82,7 +83,7 @@ public class FileUploadController implements Serializable {
 			//驗證
 			this.verifyData();
 			//傳檔
-			this.doSubmit();
+			this.sendFile();
 			//寫值到DB
 			service.doSave(dto);
 		}catch(FileSysException e){
@@ -93,82 +94,67 @@ public class FileUploadController implements Serializable {
 	}
 	
 	private void verifyData(){
-//		try{
-			FacesContext context = FacesContext.getCurrentInstance();
-			//類型
-			if(ConstantMethod.verifyColumn(dto.getType())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
-			}
-			//密件
-			if(ConstantMethod.verifyColumn(dto.getSecret())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SECRET));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SECRET);
-			}
-			//日期
-			if(ConstantMethod.verifyColumn(dto.getDisPatchDate().toString())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DATE));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DATE);
-			}
-			//分類號
-			if(ConstantMethod.verifyColumn(dto.getClassNum())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_CLASSNUM));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_CLASSNUM);
-			}
-			//公文文號
-			if(ConstantMethod.verifyColumn(dto.getDisPatchNum())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DISPATCHNUM);
-			}
-			//主旨
-			if(ConstantMethod.verifyColumn(dto.getSubject())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SUBJECT));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
-			}
-			//檔名
-			if(ConstantMethod.verifyColumn(this.uploadedFile.getFileName())){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_FILE);
-			}	
-//		}catch(FileSysException e){
-//			e.printStackTrace();
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}	
+		FacesContext context = FacesContext.getCurrentInstance();
+		//類型
+		if(ConstantMethod.verifyColumn(dto.getType())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+		}
+		//密件
+		if(ConstantMethod.verifyColumn(dto.getSecret())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SECRET));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SECRET);
+		}
+		//日期
+		if(ConstantMethod.verifyColumn(dto.getDisPatchDate().toString())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DATE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DATE);
+		}
+		//分類號
+		if(ConstantMethod.verifyColumn(dto.getClassNum())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_CLASSNUM));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_CLASSNUM);
+		}
+		//公文文號
+		if(ConstantMethod.verifyColumn(dto.getDisPatchNum())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_DISPATCHNUM);
+		}
+		//主旨
+		if(ConstantMethod.verifyColumn(dto.getSubject())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SUBJECT));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
+		}
+		//檔名
+		if(ConstantMethod.verifyColumn(this.uploadedFile.getFileName())){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_FILE);
+		}	
 	}
 	
-	public void doSubmit(){		
-		System.out.println("dto.getDisPatchDate().toString() = " + DateUtils.adToRocDate(dto.getDisPatchDate()));
+	public void sendFile(){			
+//		//取得環境執行物件
+//		FacesContext facesContext = FacesContext.getCurrentInstance();
+//		//利用externalContext取得指定物件
+//		ExternalContext externalContext = facesContext.getExternalContext();		
+//		//取得web.xml中所設定目錄
+//		String directory = externalContext.getInitParameter("uploadDirectory");
 		
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		
-
-		
-		
-		//取得web.xml中所設定目錄
-		String directory = externalContext.getInitParameter("uploadDirectory");
-		System.out.println("uploadDirectory = " + directory);
+		String directory = FileSysUtils.getUploadInitDir();
 		
 		File file = new File(directory);
-		System.out.println("file.getAbsolutePath() = " + file.getAbsolutePath());
-		
-//		String path = externalContext.getRealPath(file.getAbsolutePath());
+		//完整路徑
 		String path = file.getAbsolutePath();
-		System.out.println("path = " + path);
-		
-		dto.setUploadFile(this.uploadedFile);
-		
+			
 		//建立會使用到目錄
 		List<String> dirPaths = new ArrayList<String>();
 		dirPaths.add(path);
-//		dirPaths.add(directory);
 		dirPaths.add(DateUtils.getNowYear());
 		dirPaths.add(dto.getUser().getOfficeId());
 		dirPaths.add(dto.getUser().getUserId());
 		
-		this.genDirPath(dirPaths);
-		
+		dto.setUploadFile(this.uploadedFile);		
+		dto.setFullPath(FileSysUtils.genDirPath(dirPaths));		
 		dto.setFilePath(DateUtils.getNowYear() + File.separator + dto.getUser().getOfficeId() + File.separator + dto.getUser().getUserId());
 		
 		//取得檔案名稱
@@ -181,6 +167,7 @@ public class FileUploadController implements Serializable {
 		System.out.println("serverName = " + serverName);
 		System.out.println("dto.getFilePath() = " + dto.getFilePath());
 		
+		//上傳檔案 
 		try{
 			FileOutputStream fileOutputStream = new FileOutputStream(new File(dto.getFullPath(), serverName));
 			byte[] buffer = new byte[1024];
@@ -195,49 +182,13 @@ public class FileUploadController implements Serializable {
 				fileOutputStream.write(buffer, 0, bulk);
 				fileOutputStream.flush();
 			}
-			
 			fileOutputStream.close();
 			inputStream.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}		
 	}
-		
-	/**
-	 * 建立有使用到路徑資料夾
-	 * @param dirs
-	 */
-	private void genDirPath(List<String> dirs){
-		StringBuilder dirNames = new StringBuilder();
-		for(String dirName : dirs){
-			dirNames.append(dirName).append(File.separator);
-			this.genDirectory(dirNames.toString());
-		}
-//		for(int num=0; num < dirs.size();num++){
-//			String dirName = dirs.get(num);
-//			if(num == 0){
-//				dirNames.append(dirName);
-//			}else{
-//				dirNames.append(dirName).append(File.separator);
-//			}
-//			
-//			this.genDirectory(dirNames.toString());
-//		}
-		dto.setFullPath(dirNames.toString());
-		System.out.println("dto.getFullPath() = " + dto.getFullPath());
-	}	
-	
-	/**
-	 * 建立資料夾
-	 * @param dirName
-	 */
-	private void genDirectory(String dirName){
-		File dir = new File(dirName);
-		if(!dir.exists()){
-			dir.mkdir();
-		}
-	}
-	
+			
 	public FileUploadDTO getDto() {
 		return dto;
 	}

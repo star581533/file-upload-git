@@ -25,6 +25,7 @@ import com.iisi.api.domain.FileDeleteDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileDelete.FileDeleteService;
 import com.iisi.api.model.FileData;
+import com.iisi.core.utils.FileSysUtils;
 
 
 @ManagedBean
@@ -86,9 +87,11 @@ public class FileDeleteController implements Serializable {
 	public void deleteFile(FileData data){
 		dto.setFile(data);	
 		
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//		String path = externalContext.getRealPath("/upload");
-		String directory = externalContext.getInitParameter("uploadDirectory");
+//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+////		String path = externalContext.getRealPath("/upload");
+//		String directory = externalContext.getInitParameter("uploadDirectory");
+		String directory = FileSysUtils.getUploadInitDir();
+		
 		File fileDir = new File(directory);
 		String path = fileDir.getAbsolutePath();
 		
@@ -100,9 +103,10 @@ public class FileDeleteController implements Serializable {
 		    
 		System.out.println("result.exists() = " + result.exists());
 		
+		service.doDelete(dto);
+		
 		if(result.exists()){
 			if(result.delete()){
-//				service.doDelete(dto);
 				System.out.println("刪除成功");
 			}else{
 				System.out.println("刪除失敗");
@@ -111,7 +115,7 @@ public class FileDeleteController implements Serializable {
 			System.out.println("檔案不存在");
 		}		
 		
-		service.doDelete(dto);
+		
 		
 		dto.setFiles(service.doQuery(dto));
 //		RequestContext.getCurrentInstance().update("resultList");

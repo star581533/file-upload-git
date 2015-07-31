@@ -30,6 +30,7 @@ import com.iisi.api.domain.FileQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileQuery.FileQueryService;
 import com.iisi.api.model.FileData;
+import com.iisi.core.utils.FileSysUtils;
 import com.iisi.web.check.Checker;
 
 @ManagedBean
@@ -64,24 +65,15 @@ public class FileQueryController implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
-//	public void downloadFile(){
+
+	public void downloadFile(FileData data){
 //		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 //		String directory = externalContext.getInitParameter("uploadDirectory");
-//		String filePath = directory + dto.getFiles().get(0).getList() + ".jpg";
-//		System.out.println("filePath = " + filePath);
-//		InputStream stream = ((ServletContext)externalContext.getContext()).getResourceAsStream(filePath);
-//		file = new DefaultStreamedContent(stream, "image/jpg", dto.getFiles().get(0).getFileName());
-////		InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/demo/images/optimus.jpg");
-//	}
-	
-	public void downloadFile(FileData data){
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		String directory = externalContext.getInitParameter("uploadDirectory");
+		
+		String directory = FileSysUtils.getUploadInitDir();
 		
 		File fileDir = new File(directory);
 		String path = fileDir.getAbsolutePath();
-//		String path = externalContext.getRealPath("/upload");
 		
 		String fileName = data.getImageId() + ".jpg";
 		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
@@ -102,33 +94,25 @@ public class FileQueryController implements Serializable {
 	    }else{
 	    	throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
 	    }
-	    
-	
 	}
 	
 	public void verifyData(){
-//		try{
-			FacesContext context = FacesContext.getCurrentInstance();
-			//類型
-			if(null == dto.getType() || dto.getType().length() == 0){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
-			}
-			//起始日
-			if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
-			}
-			//迄止日
-			if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
-			}
-//		}catch(FileSysException e){
-//			e.printStackTrace();
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}		
+		FacesContext context = FacesContext.getCurrentInstance();
+		//類型
+		if(null == dto.getType() || dto.getType().length() == 0){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+		}
+		//起始日
+		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
+		}
+		//迄止日
+		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
+			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
+		}
 	}
 
 	public FileQueryDTO getDto() {

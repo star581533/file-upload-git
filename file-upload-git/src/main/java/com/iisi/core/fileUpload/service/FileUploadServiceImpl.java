@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
 import com.iisi.api.domain.FileUploadDTO;
 import com.iisi.api.fileUpload.FileUploadService;
 import com.iisi.api.model.FileData;
@@ -14,7 +15,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 
 	@Autowired
 	private DBFactory dbFactory;
-	
+		
 	@Override
 	public void doSave(FileUploadDTO dto) {
 		FileData fileData = new FileData();
@@ -34,7 +35,6 @@ public class FileUploadServiceImpl implements FileUploadService{
 		fileData.setUploadTime(DateUtils.getNowTime());
 		fileData.setUserId(dto.getUser().getUserId());
 		fileData.setUserName(dto.getUser().getUserName());
-		
 		dbFactory.insert(fileData);
 	}
 }
