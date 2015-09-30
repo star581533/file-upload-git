@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+	
+	<ui:define name="menu" />
+	<ui:define name="content">
+		<h:head>
+			<title>使用者登入</title>			
+			<style type="text/css">		
+				.ui-growl {
+				left: 50%;
+				top: 50%;
+				}
+			</style>
+		</h:head>		
+		<h:form id="loginForm">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panelGrid id="user" style="margin-top:100px;margin-left:350px">			
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="2">使用者登入</p:column>
+					</p:row>
+				</f:facet>						
+				<p:row>
+					<p:column>
+						<p:outputLabel value="使用者帳號：" />
+					</p:column>
+					<p:column>						
+						<p:inputText id="userId" value="#{loginController.dto.userId}" />	
+					</p:column>
+				</p:row>
+  	
+				<p:row>
+					<p:column style="text-align: right">
+						<p:outputLabel value="密碼："/>	
+					</p:column>
+					<p:column>
+						<p:inputText id="password" value="#{loginController.dto.password}" />	
+					</p:column>
+				</p:row>			    
+			    <p:row>		
+			    	<p:column colspan="2" style="text-align: center">
+			    		<p:commandButton 
+			    			value="登入" 
+			    			action="#{loginController.loginButton}" 
+			    			ajax="true"
+			    			update="growl"/>
+						<p:commandButton value="取消" actionListener="#{loginController.cancelButton}" update="user"/>
+			    	</p:column>			    	
+			    </p:row>
+			</p:panelGrid>			
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
